@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import './chat_model.dart';
 
-class CourseScreen extends StatefulWidget {
+class CourseConcepts extends StatefulWidget {
   @override
-  _CourseScreenState createState() => _CourseScreenState();
+  _CourseConceptsState createState() => _CourseConceptsState();
 }
 
-class _CourseScreenState extends State<CourseScreen> {
+class _CourseConceptsState extends State<CourseConcepts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Message Chat'),
+        title: Text('CourseConcepts'),
       ),
       body: Container(
         margin: new EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
@@ -31,7 +31,6 @@ class _CourseScreenState extends State<CourseScreen> {
                     backgroundImage: AssetImage(_model.avatarUrl),
                   ),
                   title: Row(
-          
                     children: <Widget>[
                       Text(_model.name),
                       SizedBox(

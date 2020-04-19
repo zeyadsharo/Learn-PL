@@ -3,7 +3,6 @@ import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 import '../learn.dart';
 import 'cardWidget.dart';
-
 List myLang;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

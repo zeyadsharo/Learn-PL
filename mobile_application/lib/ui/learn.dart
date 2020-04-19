@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'course.dart';
+
+import 'CourseConcepts.dart';
+
 
 class LearnScreen extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _LearnScreenState extends State<LearnScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CourseScreen()),
+                      MaterialPageRoute(builder: (context) => CourseConcepts()),
                     );
                   },
                 ),
@@ -55,7 +57,7 @@ class _LearnScreenState extends State<LearnScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CourseScreen()),
+                      MaterialPageRoute(builder: (context) => CourseConcepts()),
                     );
                   },
                 ),
