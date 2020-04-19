@@ -7,8 +7,8 @@ List myLang;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var db = new DatabaseHelper();
-  var d = new Lang("lang", "description");
-  db.saveLang(d);
+  await db.saveLang(new Lang("C#","decriptions"));
+  //TODO:read data from database
   myLang = await db.getAllLang();
   for (int i = 0; i < myLang.length; i++) {
     Lang lang = Lang.map(myLang[i]);

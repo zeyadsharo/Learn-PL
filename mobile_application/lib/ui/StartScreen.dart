@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
                     color: Color(0xffed3636),
                   ),
                 ),
-//button
+                //button
 
                 Spacer(
                   flex: 7,
