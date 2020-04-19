@@ -7,13 +7,13 @@ List myLang;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var db = new DatabaseHelper();
-  await db.saveLang(new Lang("C#","decriptions"));
+  await db.saveLang(new Lang("C#"));
   //TODO:read data from database
   myLang = await db.getAllLang();
   for (int i = 0; i < myLang.length; i++) {
     Lang lang = Lang.map(myLang[i]);
     print(
-        'ID: ${lang.id} - lang: ${lang.lang} - description: ${lang.description}');
+        'ID: ${lang.id} - lang: ${lang.lang}');
   }
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
