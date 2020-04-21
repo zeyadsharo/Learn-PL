@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
 import './chat_model.dart';
 
 class CourseConcepts extends StatefulWidget {
@@ -10,10 +11,12 @@ class CourseConcepts extends StatefulWidget {
 
 class _CourseConceptsState extends State<CourseConcepts> {
   static int id;
+  List<ChatModel> concepts;
   _CourseConceptsState(int id) {
     _CourseConceptsState.id = id;
+    concepts = ChatModel.data(id);
   }
-  List<ChatModel> g = ChatModel.data(id);
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,16 +27,19 @@ class _CourseConceptsState extends State<CourseConcepts> {
       body: Container(
         margin: new EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
         child: ListView.builder(
-          itemCount: g.length,
+          itemCount: concepts.length,
           itemBuilder: (context, index) {
-            ChatModel _model = g[index];
+            ChatModel _model = concepts[index];
             return Column(
               children: <Widget>[
                 Divider(
                   height: 60.0,
                 ),
                 ListTile(
-                  onTap: () => {debugPrint(_model.index.toString())},
+                  onTap: () => {
+                    _sendDataToSecondScreen(
+                        context, _model.name, id, _model.index)
+                  },
                   leading: CircleAvatar(
                     radius: 29.0,
                     // backgroundImage: AssetImage(_model.avatarUrl),
@@ -67,5 +73,18 @@ class _CourseConceptsState extends State<CourseConcepts> {
         ),
       ),
     );
+  }
+
+  void _sendDataToSecondScreen(
+      BuildContext context, String text, int lan_id, int con_id) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AboutPage(
+            text: text,
+            lang_id: lan_id,
+            consept_id: con_id,
+          ),
+        ));
   }
 }

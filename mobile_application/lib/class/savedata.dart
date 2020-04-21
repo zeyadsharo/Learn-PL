@@ -1,11 +1,13 @@
 import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/model/lang.dart';
+import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
 class SaveData {
   SaveData() {
     savelang();
     saveconcepts();
+    saveobjects();
     print("database saved");
   }
   var db = new DatabaseHelper();
@@ -28,5 +30,16 @@ class SaveData {
           .save_course_concepts(new CourseConcepts(python[i].toString(), 1));
     }
     print("concepts saved");
+  }
+
+  Future<void> saveobjects() async {
+    var javaconcepts = [
+      "Hello, World Java is an object oriented language (OOP). Java objects are part of so-called",
+      "again means that anyone can access it.",
+      " means that you can run this method without creating an instance of Main."
+    ];
+    for (var i = 0; i < javaconcepts.length; i++) {
+      await db.save_objects(new Objects(javaconcepts[i].toString(), 0, i));
+    }
   }
 }

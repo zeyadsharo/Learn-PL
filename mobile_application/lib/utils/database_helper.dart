@@ -1,3 +1,4 @@
+import 'package:mobile_application/class/savedata.dart';
 import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/model/description_objects.dart';
 import 'package:mobile_application/model/lang.dart';
@@ -24,6 +25,8 @@ class DatabaseHelper {
   final String objects_table = 'objects';
   final String objects_id = 'id';
   final String objects_name = 'object';
+  final String objects_lang_id = "lang_id";
+  final String objects_concepts_id = "concept_id";
 //Course Description  table
   final String description_table = 'descriptions';
   final String description_id = 'id';
@@ -56,12 +59,13 @@ class DatabaseHelper {
     await db.execute(sql1);
     var sql2 =
         "CREATE TABLE $objects_table ($objects_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $objects_name TEXT)";
+        " $objects_name TEXT,$objects_lang_id INTEGER,$objects_concepts_id INTEGER )";
     await db.execute(sql2);
     var sql3 =
         "CREATE TABLE $description_table ($description_id INTEGER PRIMARY KEY AUTOINCREMENT,"
         " $description_name TEXT)";
     await db.execute(sql3);
+    SaveData save = new SaveData();
   }
 
 //for course concepts table
@@ -87,12 +91,20 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<List> getAllobjects() async {
+    Future<Objects> getObjects(int lang_id,int concept_id) async {
+     var dbClient = await db;
+    var sql = "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
+    List result = await dbClient.rawQuery(sql);
+    if (result.length == 0) return null;
+    return new Objects.fromMap(result.first);
+  }
+
+  Future<List> getAllobjects( int lang_id,int concept_id) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $objects_table";
+    var sql = "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
     List result = await dbClient.rawQuery(sql);
     return result;
-
+  }
 //description _objects table
     Future<int> save_description(DescriptionObjects descriptionObjects) async {
       var dbClient = await db;
@@ -107,7 +119,7 @@ class DatabaseHelper {
       List result = await dbClient.rawQuery(sql);
       return result.toList();
     }
-  }
+  
 
   Future<int> saveUser(User user) async {
     var dbClient = await db;
