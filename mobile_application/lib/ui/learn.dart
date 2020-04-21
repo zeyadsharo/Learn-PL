@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'CourseConcepts.dart';
 
-
 class LearnScreen extends StatefulWidget {
+  final int id;
+  LearnScreen({Key key, @required this.id}) : super(key: key);
   @override
-  _LearnScreenState createState() => _LearnScreenState();
+  _LearnScreenState createState() => _LearnScreenState(id);
 }
 
 class _LearnScreenState extends State<LearnScreen> {
+  int id;
+  _LearnScreenState(int  id) {
+    this.id = id;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('learn'),
+        title: Text('Learn'),
+        backgroundColor: Colors.red,
       ),
       body: new Scaffold(
         body: new Container(
@@ -25,9 +32,9 @@ class _LearnScreenState extends State<LearnScreen> {
                   flex: 7,
                 ),
                 RaisedButton(
-                  color: const Color(0xff1111ed),
+                  color: const Color(0xff0880f9).withOpacity(.6),
                   child: new Text(
-                    "Course",
+                   "Course",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Microsoft JhengHei UI",
@@ -36,15 +43,12 @@ class _LearnScreenState extends State<LearnScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CourseConcepts()),
-                    );
+                    _sendDataToSecondScreen(context, this.id);
                   },
                 ),
                 Spacer(flex: 4),
                 RaisedButton(
-                  color: const Color(0xff1111ed),
+                  color: const Color(0xff0880f9).withOpacity(.6),
                   child: new Text(
                     "Quiz",
                     textAlign: TextAlign.center,
@@ -55,10 +59,10 @@ class _LearnScreenState extends State<LearnScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CourseConcepts()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => CourseConcepts()),
+                    // );
                   },
                 ),
                 Spacer(
@@ -70,5 +74,15 @@ class _LearnScreenState extends State<LearnScreen> {
         ),
       ),
     );
+  }
+
+  void _sendDataToSecondScreen(BuildContext context, int idd) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CourseConcepts(
+            id: idd,
+          ),
+        ));
   }
 }

@@ -1,34 +1,37 @@
-class ChatModel {
-  final String avatarUrl;
-  final String name;
-  final String datetime;
-  final String message;
+import 'package:mobile_application/class/getdata.dart';
+import 'package:mobile_application/model/courseconsepts.dart';
 
-  ChatModel({this.avatarUrl, this.name, this.datetime, this.message});
-  static final List<ChatModel> dummyData = [
-    ChatModel(
-      avatarUrl: "images/flower.jpg",
-      name: "C++",
-      datetime: "20:18",
-      message: "How about meeting tomorrow?",
-    ),
-    ChatModel(
-      avatarUrl: "images/flower.jpg",
-      name: "Tracy",
-      datetime: "19:22",
-      message: "I love that idea, it's great!",
-    ),
-    ChatModel(
-      avatarUrl: "images/flower.jpg",
-      name: "Claire",
-      datetime: "14:34",
-      message: "I wasn't aware of that. Let me check",
-    ),
-    ChatModel(
-      avatarUrl: "images/flower.jpg",
-      name: "Claire",
-      datetime: "14:34",
-      message: "I wasn't aware of that. Let me check",
-    ),
-  ];
+class ChatModel {
+  String avatarUrl;
+  String name;
+  String datetime;
+  String message;
+  int index;
+
+  static List myUsers;
+  ChatModel(
+      {this.avatarUrl, this.name, this.datetime, this.message, this.index});
+
+  static List<ChatModel> bigdata = [];
+  static Future<List> ss(int id) async {
+    myUsers = await Getdata.getdata(id);
+    bigdata.clear();
+    for (var i = 0; i < myUsers.length; i++) {
+      CourseConcepts user = CourseConcepts.map(myUsers[i]);
+      bigdata.add(ChatModel(
+        avatarUrl: "images/flower.jpg",
+        name: "${user.concepts}",
+        datetime: "20:18",
+        index: i + 1,
+        //message: "How about meeting tomorrow?",
+      ));
+    }
+  }
+
+  static List<ChatModel> data(int id) {
+    //  bigdata.clear();
+    //sleep(Duration(seconds: 2));
+    ss(id);
+    return bigdata;
+  }
 }

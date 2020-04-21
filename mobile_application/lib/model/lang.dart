@@ -2,10 +2,10 @@ class Lang {
   int id;
   String lang;
 
-  Lang(this.lang);
+  Lang(this.id,this.lang);
   Lang.map(dynamic obj) {
     this.lang = obj['lang'];
-    // this.id = obj['id'];
+    this.id = obj['id'];
   }
   String get _lang => lang;
   int get _id => id;

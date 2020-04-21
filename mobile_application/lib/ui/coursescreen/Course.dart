@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_application/model/lang.dart';
-import 'package:mobile_application/utils/database_helper.dart';
 import '../learn.dart';
 import 'cardWidget.dart';
-List myLang;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var db = new DatabaseHelper();
-  await db.saveLang(new Lang("C#"));
-  //TODO:read data from database
-  myLang = await db.getAllLang();
-  for (int i = 0; i < myLang.length; i++) {
-    Lang lang = Lang.map(myLang[i]);
-    print(
-        'ID: ${lang.id} - lang: ${lang.lang}');
-  }
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
+      
     home: new Course(),
   ));
 }
@@ -24,12 +14,13 @@ void main() async {
 class Course extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var array = ["Java", "C#", "Python", "C++"];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Color(0xff1313ee).withOpacity(0.77),
+          backgroundColor: Colors.red,
           title: new Center(
               child: new Text("Course", textAlign: TextAlign.center)),
         ),
@@ -40,42 +31,44 @@ class Course extends StatelessWidget {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LearnScreen()),
-                    );
+                    _sendDataToSecondScreen(context,0);
                   },
                   child: CardWidget(
-                    color: Color(0xffffeb80).withOpacity(0.43),
+                    color: Color(0xff0880f9).withOpacity(.6),
                     profileImage: 'images/java.png',
-                    name: "Java",
-                    job: 'Minions',
+                    name: array[0],
+                    //job: 'Minions',
+                    
                   ),
                 ),
                 GestureDetector(
-                  onTap: null,
+                  onTap: () {
+                    _sendDataToSecondScreen(context, 1);
+                  },
                   child: CardWidget(
-                    color: Color(0xffd5f6e2).withOpacity(0.43),
+                    color:Color(0xff0880f9).withOpacity(.6),
                     profileImage: 'images/csharp.png',
-                    name: 'C#',
-                    job: 'Toy Story',
+                    name: array[1],
                   ),
                 ),
                 GestureDetector(
-                  onTap: null,
+                  onTap: () {
+                    _sendDataToSecondScreen(context, 2);
+                  },
                   child: CardWidget(
-                    color: Color(0xffff9bc6).withOpacity(0.43),
+                    color:Color(0xff0880f9).withOpacity(.6),
                     profileImage: 'images/flower.jpg',
-                    name: 'Python',
-                    job: 'Toy Story',
+                    name: array[2],
                   ),
                 ),
                 GestureDetector(
-                  onTap: null,
+                  onTap: () {
+                    _sendDataToSecondScreen(context, 3);
+                  },
                   child: CardWidget(
-                    color: Color(0xffd5c4f5).withOpacity(0.43),
+                    color:Color(0xff0880f9).withOpacity(.6),
                     profileImage: 'images/c.png',
-                    name: 'C++',
+                    name: array[3],
                     job: 'Toy Story',
                   ),
                 ),
@@ -85,5 +78,15 @@ class Course extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _sendDataToSecondScreen(BuildContext context, int idd) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LearnScreen(
+            id: idd,
+          ),
+        ));
   }
 }

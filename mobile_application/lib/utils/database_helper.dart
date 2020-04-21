@@ -19,6 +19,7 @@ class DatabaseHelper {
   final String course_concepts_table = 'course_concepts';
   final String concepts_id = 'id';
   final String concepts_name = 'concepts';
+  final String concepts_lang_id = 'lang_id';
 //Course Objects table
   final String objects_table = 'objects';
   final String objects_id = 'id';
@@ -48,9 +49,10 @@ class DatabaseHelper {
         "CREATE TABLE $langtable ($columnId INTEGER PRIMARY KEY AUTOINCREMENT,"
         " $columnlang TEXT)";
     await db.execute(sql);
+
     var sql1 =
         "CREATE TABLE $course_concepts_table ($concepts_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $concepts_name TEXT)";
+        " $concepts_name TEXT,$concepts_lang_id INTEGER)";
     await db.execute(sql1);
     var sql2 =
         "CREATE TABLE $objects_table ($objects_id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -70,9 +72,10 @@ class DatabaseHelper {
     return result;
   }
 
-  Future<List> getAllconcepts() async {
+  Future<List> getAllconcepts(int id) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $course_concepts_table";
+    var sql =
+        "SELECT * FROM $course_concepts_table WHERE $concepts_lang_id = $id";
     List result = await dbClient.rawQuery(sql);
     return result.toList();
   }
@@ -123,6 +126,14 @@ class DatabaseHelper {
     var sql = "SELECT * FROM $langtable";
     List result = await dbClient.rawQuery(sql);
     return result.toList();
+  }
+
+  Future<Lang> getLang(int id) async {
+    var dbClient = await db;
+    var sql = "SELECT * FROM $langtable WHERE $columnId = $id";
+    var result = await dbClient.rawQuery(sql);
+    if (result.length == 0) return null;
+    return new Lang.fromMap(result.first);
   }
 
   Future<int> getCount() async {

@@ -28,7 +28,7 @@ class CardWidget extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 23,
-                    color: Color(0xff000000),
+                    color: Color(0xffffffff),
                   ),
                 ),
               ),
@@ -37,7 +37,7 @@ class CardWidget extends StatelessWidget {
                 child:  Icon(
                     Icons.check_circle_outline,
                     size: 30.0,
-                    color: Colors.green,
+                    color: Colors.yellow,
                   )
               )
             ],
