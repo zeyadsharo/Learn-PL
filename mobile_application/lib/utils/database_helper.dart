@@ -3,7 +3,6 @@ import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/model/description_objects.dart';
 import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/model/objects.dart';
-import 'package:mobile_application/model/user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -121,11 +120,7 @@ class DatabaseHelper {
     }
   
 
-  Future<int> saveUser(User user) async {
-    var dbClient = await db;
-    int result = await dbClient.insert("$langtable", user.toMap());
-    return result;
-  }
+  
 
   Future<int> saveLang(Lang lang) async {
     var dbClient = await db;
@@ -154,27 +149,6 @@ class DatabaseHelper {
 
     return Sqflite.firstIntValue(await dbClient.rawQuery(sql));
   }
-
-  Future<User> getUser(int id) async {
-    var dbClient = await db;
-    var sql = "SELECT * FROM $langtable WHERE $columnId = $id";
-    var result = await dbClient.rawQuery(sql);
-    if (result.length == 0) return null;
-    return new User.fromMap(result.first);
-  }
-
-  Future<int> deleteUser(int id) async {
-    var dbClient = await db;
-    return await dbClient
-        .delete(langtable, where: "$columnId = ?", whereArgs: [id]);
-  }
-
-  Future<int> updateUser(User user) async {
-    var dbClient = await db;
-    return await dbClient.update(langtable, user.toMap(),
-        where: "$columnId = ?", whereArgs: [user.id]);
-  }
-
   Future<void> close() async {
     var dbClient = await db;
     return await dbClient.close();
