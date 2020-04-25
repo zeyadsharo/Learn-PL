@@ -135,9 +135,9 @@ class DatabaseHelper {
     return result.toList();
   }
 
-  Future<Lang> getLang(int id) async {
+  Future<Lang> getLang(String name) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $langtable WHERE $columnId = $id";
+    var sql = "SELECT * FROM $langtable WHERE $columnlang = $name";
     var result = await dbClient.rawQuery(sql);
     if (result.length == 0) return null;
     return new Lang.fromMap(result.first);

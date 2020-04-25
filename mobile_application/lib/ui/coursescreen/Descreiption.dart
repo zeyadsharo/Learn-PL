@@ -85,8 +85,11 @@ class AboutPage extends StatelessWidget {
                         initialData: 'Get Data ...',
                         future: _getData(lang_id, consept_id),
                         builder: (context, snapshot) {
-                          return Text(snapshot.data.toString(),
-                              style: TextStyle(fontSize: 14));
+                          return Text(
+                            snapshot.data.toString(),
+                            style: TextStyle(fontSize: 14),
+                            textAlign: TextAlign.left,
+                          );
                         },
                       )),
                     ),
@@ -125,9 +128,13 @@ class AboutPage extends StatelessWidget {
 
   Future<String> _getData(int langId, int conceptId) async {
     var db = new DatabaseHelper();
-    Objects object = await db.getObjects(langId, conceptId);
     //print(_getdata2);
-    return object.object;
+    try { 
+      Objects object = await db.getObjects(langId, conceptId);
+      return object.object;
+    } catch (e) {
+      return "error";
+    }
   }
 
   void _sendDataToSecondScreen(

@@ -1,77 +1,132 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
-import './chat_model.dart';
+import 'package:mobile_application/utils/database_helper.dart';
 
-class CourseConcepts extends StatefulWidget {
+class CourseConcept extends StatelessWidget {
   final int id;
-  CourseConcepts({Key key, @required this.id}) : super(key: key);
-  @override
-  _CourseConceptsState createState() => _CourseConceptsState(id);
-}
-
-class _CourseConceptsState extends State<CourseConcepts> {
-  static int id;
-  List<ChatModel> concepts;
-  _CourseConceptsState(int id) {
-    _CourseConceptsState.id = id;
-    concepts = ChatModel.data(id);
-  }
-      
+  CourseConcept({Key key, @required this.id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new MyHomePage(id),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  int id;
+  MyHomePage(int id) {
+    this.id = id;
+  }
+
+  @override
+  _MyHomePageState createState() => new _MyHomePageState(this.id);
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int id;
+  _MyHomePageState(int id) {
+    this.id = id;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var futureBuilder = new FutureBuilder(
+      future: _getData(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return new Text('loading...');
+          default:
+            if (snapshot.hasError)
+              return new Text('Error: ${snapshot.error}');
+            else
+              return createListView(context, snapshot);
+        }
+      },
+    );
+
+    return new Scaffold(
       appBar: AppBar(
-        title: Text('CourseConcepts'),
+        title: Text('CourseConcept'),
         backgroundColor: Colors.red,
       ),
-      body: Container(
-        margin: new EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
-        child: ListView.builder(
-          itemCount: concepts.length,
-          itemBuilder: (context, index) {
-            ChatModel _model = concepts[index];
-            return Column(
-              children: <Widget>[
-                Divider(
-                  height: 60.0,
-                ),
-                ListTile(
-                  onTap: () => {
-                    _sendDataToSecondScreen(
-                        context, _model.name, id, _model.index)
-                  },
-                  leading: CircleAvatar(
-                    radius: 29.0,
-                    // backgroundImage: AssetImage(_model.avatarUrl),
-                    child: new Text(_model.index.toString(),
-                        style: TextStyle(
-                          fontFamily: "Microsoft JhengHei UI",
-                          fontSize: 28,
-                          color: Color(0xffffffff),
-                        )),
+      body: futureBuilder,
+    );
+  }
+
+  Future<List<String>> _getData() async {
+    var values = new List<String>();
+    values.add("Horses");
+    values.add("Goats");
+    values.add("Chickens");
+    values.clear();
+    //throw new Exception("Danger Will Robinson!!!");
+    var db = new DatabaseHelper();
+    List myUsers = await db.getAllconcepts(this.id);
+    // await new Future.delayed(new Duration(seconds: 2));
+    for (var i = 0; i < myUsers.length; i++) {
+      CourseConcepts user = CourseConcepts.map(myUsers[i]);
+      values.add(
+        "${user.concepts}",
+      );
+    }
+    return values;
+  }
+
+  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+    List<String> values = snapshot.data;
+    return new ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return new Column(
+          children: <Widget>[
+            Divider(
+              height: 20.0,
+            ),
+            ListTile(
+              onTap: () =>
+                  {_sendDataToSecondScreen(context, values[index], id, index)},
+              leading: CircleAvatar(
+                radius: 29.0,
+                // backgroundImage: AssetImage(_model.avatarUrl),
+                child: new Text((index + 1).toString(),
+                    style: TextStyle(
+                      fontFamily: "Microsoft JhengHei UI",
+                      fontSize: 28,
+                      color: Color(0xffffffff),
+                    )),
+              ),
+              title: Wrap(
+                spacing: 8.0, // gap between adjacent chips
+                runSpacing: 4.0, // gap between lines
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  Text(values[index]),
+                  SizedBox(
+                    width: 16.0,
                   ),
-                  title: Wrap(
-                    spacing: 8.0, // gap between adjacent chips
-                    runSpacing: 4.0, // gap between lines
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      Text(_model.name),
-                      SizedBox(
-                        width: 16.0,
-                      ),
-                    ],
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20.0,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+                ],
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 20.0,
+                color: Colors.red,
+              ),
+              // new Divider(
+              //   height: 2.0,
+              // ),
+            ),
+          ],
+        );
+      },
     );
   }
 

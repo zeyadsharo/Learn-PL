@@ -23,7 +23,7 @@ class ChatModel {
         avatarUrl: "images/flower.jpg",
         name: "${user.concepts}",
         datetime: "20:18",
-        index: i + 1,
+        index: i,
       ));
     }
   }
