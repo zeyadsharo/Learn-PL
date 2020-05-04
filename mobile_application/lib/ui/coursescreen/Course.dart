@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application/model/courseconsepts.dart';
+import 'package:mobile_application/model/lang.dart';
+import 'package:mobile_application/utils/database_helper.dart';
 import '../learn.dart';
 import 'package:flutter/services.dart';
 
-class homepage extends StatefulWidget {
+class CourseScreen extends StatefulWidget {
   @override
-  _homepageState createState() => _homepageState();
+  _CourseScreenState createState() => _CourseScreenState();
 }
 
-class _homepageState extends State<homepage> {
+class _CourseScreenState extends State<CourseScreen> {
   List<String> images = [
     "images/py.png",
     "images/java.png",
@@ -15,7 +18,7 @@ class _homepageState extends State<homepage> {
     "images/cpp.png",
     "images/linux.png",
   ];
-
+  List<String> lang = ["SDF", "sfdsf", "sdfsdf", "sdfsdf"];
   List<String> des = [
     "Python is one of the most popular and fastest programming language since half a decade.\nIf You think you have learn it.. \nJust test yourself !!",
     "Java has always been one of the best choices for Enterprise World. If you think you have learn the Language...\nJust Test Yourself !!",
@@ -41,10 +44,9 @@ class _homepageState extends State<homepage> {
           _sendDataToSecondScreen(context, langname);
         },
         child: Material(
-          color: Colors.indigoAccent,
-          elevation: 10.0,
-          borderRadius: BorderRadius.circular(25.0),
-          child: Container(
+            color: Colors.indigoAccent,
+            elevation: 10.0,
+            borderRadius: BorderRadius.circular(25.0),
             child: Column(
               children: <Widget>[
                 Padding(
@@ -93,9 +95,7 @@ class _homepageState extends State<homepage> {
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }
@@ -113,17 +113,40 @@ class _homepageState extends State<homepage> {
           ),
         ),
       ),
-      body: ListView(
-        children: <Widget>[
-          customcard("Python", images[0], des[0]),
-          customcard("Java", images[1], des[1]),
-          customcard("Javascript", images[2], des[2]),
-          customcard("C++", images[3], des[3]),
-          customcard("Linux", images[4], des[4]),
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: lang.length,
+          itemBuilder: (BuildContext context, int index)  {
+            return new Column(
+              children: <Widget>[
+                FutureBuilder(
+                    initialData: 'Get Data ...',
+                    future: _getData(),
+                    builder: (context, snapshot)  {
+                     Lang lang = Lang.map(snapshot.data[index]);
+                     // print(snapshot.data);
+                      return customcard(lang.lang,
+                          images[index], lang.description);
+                    }),
+              ],
+            );
+          }),
     );
   }
+}
+
+Future<List<Map<String, dynamic>>> _getData() async {
+  var values = new List<String>();
+
+  //throw new Exception("Danger Will Robinson!!!");
+  var db = new DatabaseHelper();
+  List myUsers = await db.getAllLang();
+  return myUsers;
+  // // await new Future.delayed(new Duration(seconds: 2));
+  // for (var i = 0; i < myUsers.length; i++) {
+  //   Lang lang = Lang.map(myUsers[i]);
+  //   values.addAll(["${lang.lang}"]);
+  // }
+  // return values;
 }
 
 void _sendDataToSecondScreen(BuildContext context, String lang) {
@@ -131,7 +154,7 @@ void _sendDataToSecondScreen(BuildContext context, String lang) {
       context,
       MaterialPageRoute(
         builder: (context) => LearnScreen(
-         langname : lang,
+          langname: lang,
         ),
       ));
 }

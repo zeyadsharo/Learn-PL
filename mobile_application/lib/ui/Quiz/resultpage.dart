@@ -92,7 +92,7 @@ class _resultpageState extends State<resultpage> {
                 OutlineButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => homepage(),
+                      builder: (context) => CourseScreen(),
                     ));
                   },
                   child: Text(

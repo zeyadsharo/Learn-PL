@@ -15,6 +15,7 @@ class DatabaseHelper {
   final String langtable = 'langtable';
   final String columnId = 'id';
   final String columnlang = 'lang';
+  final String columndes = 'description';
   //Course consepts table
   final String course_concepts_table = 'course_concepts';
   final String concepts_id = 'id';
@@ -49,7 +50,7 @@ class DatabaseHelper {
   void _onCreate(Database db, int newVersion) async {
     var sql =
         "CREATE TABLE $langtable ($columnId INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $columnlang TEXT)";
+        " $columnlang TEXT, $columndes TEXT)";
     await db.execute(sql);
 
     var sql1 =
@@ -90,37 +91,37 @@ class DatabaseHelper {
     return result;
   }
 
-    Future<Objects> getObjects(int lang_id,int concept_id) async {
-     var dbClient = await db;
-    var sql = "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
+  Future<Objects> getObjects(int lang_id, int concept_id) async {
+    var dbClient = await db;
+    var sql =
+        "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
     List result = await dbClient.rawQuery(sql);
     if (result.length == 0) return null;
     return new Objects.fromMap(result.first);
   }
 
-  Future<List> getAllobjects( int lang_id,int concept_id) async {
+  Future<List> getAllobjects(int lang_id, int concept_id) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
+    var sql =
+        "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
     List result = await dbClient.rawQuery(sql);
     return result;
   }
+
 //description _objects table
-    Future<int> save_description(DescriptionObjects descriptionObjects) async {
-      var dbClient = await db;
-      int result = await dbClient.insert(
-          "$description_table", descriptionObjects.toMap());
-      return result;
-    }
+  Future<int> save_description(DescriptionObjects descriptionObjects) async {
+    var dbClient = await db;
+    int result =
+        await dbClient.insert("$description_table", descriptionObjects.toMap());
+    return result;
+  }
 
-    Future<List> getAlldescription() async {
-      var dbClient = await db;
-      var sql = "SELECT * FROM $description_table";
-      List result = await dbClient.rawQuery(sql);
-      return result.toList();
-    }
-  
-
-  
+  Future<List> getAlldescription() async {
+    var dbClient = await db;
+    var sql = "SELECT * FROM $description_table";
+    List result = await dbClient.rawQuery(sql);
+    return result.toList();
+  }
 
   Future<int> saveLang(Lang lang) async {
     var dbClient = await db;
@@ -149,6 +150,7 @@ class DatabaseHelper {
 
     return Sqflite.firstIntValue(await dbClient.rawQuery(sql));
   }
+
   Future<void> close() async {
     var dbClient = await db;
     return await dbClient.close();

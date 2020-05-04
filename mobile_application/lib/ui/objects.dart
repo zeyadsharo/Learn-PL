@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile_application/model/courseconsepts.dart';
+import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
 import 'package:mobile_application/utils/database_helper.dart';
-import 'objects.dart';
-class CourseConcept extends StatelessWidget {
+
+class Object extends StatelessWidget {
   final int id;
-  CourseConcept({Key key, @required this.id}) : super(key: key);
+  Object({Key key, @required this.id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -89,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               onTap: () =>
-                  {_sendDataToSecondScreen(context,id)},
+                  {_sendDataToSecondScreen(context, values[index], id, index)},
               leading: CircleAvatar(
                 radius: 29.0,
                 // backgroundImage: AssetImage(_model.avatarUrl),
@@ -127,12 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _sendDataToSecondScreen(
-      BuildContext context, int idd) {
-   Navigator.push(
+      BuildContext context, String text, int lan_id, int con_id) {
+    Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Object(
-            id: idd,
+          builder: (context) => AboutPage(
+            text: text,
+            lang_id: lan_id,
+            consept_id: con_id,
           ),
         ));
   }

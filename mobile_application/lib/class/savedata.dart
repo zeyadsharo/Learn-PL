@@ -2,6 +2,7 @@ import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/utils/database_helper.dart';
+
 class SaveData {
   SaveData() {
     savelang();
@@ -11,12 +12,20 @@ class SaveData {
   }
   var db = new DatabaseHelper();
   Future<void> savelang() async {
-    var language = ["Java", "Javascript", "Python", "C++","Linux"];
+    var language = ["Python", "Java", "C#", "C++"];
+    var des = [
+      "Python is one of the most popular and fastest programming language since half a decade.\nIf You think you have learn it.. \nJust test yourself !!",
+      "Java has always been one of the best choices for Enterprise World. If you think you have learn the Language...\nJust Test Yourself !!",
+      "Javascript is one of the most Popular programming language supporting the Web.\nIt has a wide range of Libraries making it Very Powerful !",
+      "C++, being a statically typed programming language is very powerful and Fast.\nit's DMA feature makes it more useful. !",
+      "Linux is a OPEN SOURCE Operating System which powers many Servers and Workstation.\nIt is also a top Priority in Developement Work !",
+    ];
     for (var i = 0; i < language.length; i++) {
-      await db.saveLang(new Lang(i, language[i].toString()));
+      await db.saveLang(new Lang(i, language[i].toString(), des[i].toString()));
     }
     print("lang saved");
   }
+
   Future<void> saveconcepts() async {
     var java = [
       "Introduction to Java",
@@ -45,13 +54,11 @@ class SaveData {
     }
     var cplas = ["Hello C++", "conditional and loop"];
     for (var i = 0; i < cplas.length; i++) {
-      await db
-          .save_course_concepts(new CourseConcepts(cplas[i].toString(), 3));
+      await db.save_course_concepts(new CourseConcepts(cplas[i].toString(), 3));
     }
     var linux = ["Hello Linux", "conditional and loop"];
     for (var i = 0; i < linux.length; i++) {
-      await db
-          .save_course_concepts(new CourseConcepts(linux[i].toString(), 4));
+      await db.save_course_concepts(new CourseConcepts(linux[i].toString(), 4));
     }
     print("concepts saved");
   }

@@ -19,7 +19,7 @@ class Objects {
     map['object'] = _object;
     map['lang_id'] = _lang_id;
     map['concept_id'] = _concept_id;
-
+ 
     if (id != null) {
       map['id'] = _id;
     }
