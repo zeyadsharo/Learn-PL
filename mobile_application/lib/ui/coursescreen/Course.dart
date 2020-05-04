@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_application/model/courseconsepts.dart';
 import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 import '../learn.dart';
@@ -14,19 +13,9 @@ class _CourseScreenState extends State<CourseScreen> {
   List<String> images = [
     "images/py.png",
     "images/java.png",
-    "images/js.png",
+    "images/cshap.png",
     "images/cpp.png",
-    "images/linux.png",
   ];
-  List<String> lang = ["SDF", "sfdsf", "sdfsdf", "sdfsdf"];
-  List<String> des = [
-    "Python is one of the most popular and fastest programming language since half a decade.\nIf You think you have learn it.. \nJust test yourself !!",
-    "Java has always been one of the best choices for Enterprise World. If you think you have learn the Language...\nJust Test Yourself !!",
-    "Javascript is one of the most Popular programming language supporting the Web.\nIt has a wide range of Libraries making it Very Powerful !",
-    "C++, being a statically typed programming language is very powerful and Fast.\nit's DMA feature makes it more useful. !",
-    "Linux is a OPEN SOURCE Operating System which powers many Servers and Workstation.\nIt is also a top Priority in Developement Work !",
-  ];
-
   Widget customcard(String langname, String image, String des) {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -121,7 +110,7 @@ class _CourseScreenState extends State<CourseScreen> {
               } else {
                 return Container(
                     child: ListView.builder(
-                        itemCount: lang.length,
+                        itemCount:4,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (BuildContext context, int index) {
                           Lang lang = Lang.map(snapshot.data[index]);
@@ -134,18 +123,9 @@ class _CourseScreenState extends State<CourseScreen> {
 }
 
 Future<List<Map<String, dynamic>>> _getData() async {
-  var values = new List<String>();
-
-  //throw new Exception("Danger Will Robinson!!!");
   var db = new DatabaseHelper();
   List myUsers = await db.getAllLang();
   return myUsers;
-  // // await new Future.delayed(new Duration(seconds: 2));
-  // for (var i = 0; i < myUsers.length; i++) {
-  //   Lang lang = Lang.map(myUsers[i]);
-  //   values.addAll(["${lang.lang}"]);
-  // }
-  // return values;
 }
 
 void _sendDataToSecondScreen(BuildContext context, String lang) {
