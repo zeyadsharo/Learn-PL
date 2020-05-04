@@ -22,8 +22,8 @@ class getjson extends StatelessWidget {
       assettoload = "assets/python.json";
     } else if (langname == "Java") {
       assettoload = "assets/java.json";
-    } else if (langname == "Javascript") {
-      assettoload = "assets/js.json";
+    } else if (langname == "csharp") {
+      assettoload = "assets/csharp.json";
     } else if (langname == "C++") {
       assettoload = "assets/cpp.json";
     } else {
@@ -42,6 +42,7 @@ class getjson extends StatelessWidget {
       future:
           DefaultAssetBundle.of(context).loadString(assettoload, cache: true),
       builder: (context, snapshot) {
+        assert(snapshot != null);
         List mydata = json.decode(snapshot.data.toString());
         if (mydata == null) {
           return Scaffold(
@@ -52,7 +53,9 @@ class getjson extends StatelessWidget {
             ),
           );
         } else {
-          return quizpage(mydata: mydata);
+          try {
+            return quizpage(mydata: mydata);
+          } catch (e) {}
         }
       },
     );
@@ -99,6 +102,13 @@ class _quizpageState extends State<quizpage> {
   // -----     CODE TO GENERATE ARRAY RANDOMLY
 
   genrandomarray() {
+    // Random rnd;
+    // int min = 1;
+    // int max = 10;
+    // rnd = new Random();
+    // var r = min + rnd.nextInt(max - min);
+    // print("$r is in the range of $min and $max");
+
     var distinctIds = [];
     var rand = new Random();
     for (int i = 0;;) {
@@ -229,7 +239,7 @@ class _quizpageState extends State<quizpage> {
             fontFamily: "Alike",
             fontSize: 16.0,
           ),
-          maxLines: 1,
+          maxLines: 3,
         ),
         color: btncolor[k],
         splashColor: Colors.indigo[700],

@@ -1,4 +1,4 @@
-import 'package:mobile_application/model/courseconsepts.dart';
+
 import 'package:mobile_application/utils/database_helper.dart';
 
 class Getdata {

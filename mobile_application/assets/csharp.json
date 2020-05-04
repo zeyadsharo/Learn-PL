@@ -1,0 +1,95 @@
+[{
+        "0": "Which of the following is correct about C#",
+        "1": "Which of the following converts a type to a signed byte type in C#?",
+        "2": "Which of the following operator represents a conditional operation in C#?",
+        "3": " which is used to access any database and provides flexibility of changing the database at any time",
+        "4": " A __________ type is a type whos",
+        "5": "___________ is not an access modifier.",
+        "6": "Which is the advantage of using 2D jagged array over 2D rectangular array?",
+        "7": "Which keyword is used to refer baseclass constructor to subclass constructor?",
+        "8": "Which property among the following represents the current position of the stream?",
+        "9": "Which of the following is an incorrect statement about delegate?",
+        "10": "The execution of the program begins with _______"
+    },
+    {
+        "0": {
+            "a": "It is component oriented.",
+            "b": "It can be compiled on a variety of computer platforms.",
+            "c": "It is a part of .Net Framework.",
+            "d": "All of the above."
+        },
+        "1": {
+            "a": "ToInt64",
+            "b": "ToSbyte",
+            "c": "ToSingle",
+            "d": "ToInt32"
+        },
+        "2": {
+            "a": "?:",
+            "b": "is",
+            "c": "as",
+            "d": "*"
+        },
+        "3": {
+            "a": "Oracle Provider",
+            "b": "OLDEB Provider",
+            "c": "SQLDB Provid",
+            "d": "ODBC provid"
+        },
+        "4": {
+            "a": "strin",
+            "b": "enum",
+            "c": "struct",
+            "d": "array"
+        },
+        "5": {
+            "a": "public",
+            "b": "private",
+            "c": "protect",
+            "d": "internal"
+        },
+        "6": {
+            "a": "Easy initialization of elements",
+            "b": "Allows unlimited elements as well as rows which had ‘0’ or are empty in nature",
+            "c": "All of the mentioned",
+            "d": "None of the mentioned"
+        },
+        "7": {
+            "a": "This",
+            "b": "static",
+            "c": "base",
+            "d": "extend"
+        },
+        "8": {
+            "a": "long Length",
+            "b": "long Position",
+            "c": "int Length",
+            "d": "All of the mentioned"
+        },
+        "9": {
+            "a": "A single delegate can invoke more than one method",
+            "b": "delegates could be shared",
+            "c": "delegates are type safe wrappers for function pointers",
+            "d": "delegate is a value type"
+        },
+        "10": {
+            "a": "Main()",
+            "b": "get()",
+            "c": "class()",
+            "d": "display()"
+        }
+    },
+    {
+        "0": "All of the above.",
+        "1": "ToSbyte",
+        "2": " ?:",
+        "3": "OLDEB Provider",
+        "4": "enum",
+        "5": "protect",
+        "6": "Allows unlimited elements as well as rows which had ‘0’ or are empty in nature",
+        "7": "base",
+        "8": "long Length",
+        "9": "delegates are type safe wrappers for function pointers",
+        "10": "Main()"
+    }
+]
