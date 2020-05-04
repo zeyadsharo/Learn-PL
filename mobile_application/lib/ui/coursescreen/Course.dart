@@ -105,32 +105,31 @@ class _CourseScreenState extends State<CourseScreen> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Course",
-          style: TextStyle(
-            fontFamily: "Quando",
+        appBar: AppBar(
+          title: Text(
+            "Course",
+            style: TextStyle(
+              fontFamily: "Quando",
+            ),
           ),
         ),
-      ),
-      body: ListView.builder(
-          itemCount: lang.length,
-          itemBuilder: (BuildContext context, int index)  {
-            return new Column(
-              children: <Widget>[
-                FutureBuilder(
-                    initialData: 'Get Data ...',
-                    future: _getData(),
-                    builder: (context, snapshot)  {
-                     Lang lang = Lang.map(snapshot.data[index]);
-                     // print(snapshot.data);
-                      return customcard(lang.lang,
-                          images[index], lang.description);
-                    }),
-              ],
-            );
-          }),
-    );
+        body: FutureBuilder(
+            future: _getData(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return Container(
+                    child: ListView.builder(
+                        itemCount: lang.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (BuildContext context, int index) {
+                          Lang lang = Lang.map(snapshot.data[index]);
+                          return customcard(
+                              lang.lang, images[index], lang.description);
+                        }));
+              }
+            }));
   }
 }
 
