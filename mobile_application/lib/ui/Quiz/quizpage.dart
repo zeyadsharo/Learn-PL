@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'resultpage.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 class getjson extends StatelessWidget {
   // accept the langname as a parameter
@@ -66,6 +68,9 @@ class quizpage extends StatefulWidget {
 }
 
 class _quizpageState extends State<quizpage> {
+  AudioCache _audioCache;
+  int x = 9;
+  @override
   var mydata;
   _quizpageState(this.mydata);
 
@@ -131,6 +136,9 @@ class _quizpageState extends State<quizpage> {
     starttimer();
     genrandomarray();
     super.initState();
+    _audioCache = AudioCache(
+        prefix: "audio/",
+        fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
   }
 
   // overriding the setstate function to be called only if mounted
@@ -189,9 +197,11 @@ class _quizpageState extends State<quizpage> {
       marks = marks + 5;
       // changing the color variable to be green
       colortoshow = right;
+      _audioCache.play('right.mp3');
     } else {
       // just a print sattement to check the correct working
       // debugPrint(mydata[2]["1"] + " is equal to " + mydata[1]["1"][k]);
+      _audioCache.play('wrong.mp3');
       colortoshow = wrong;
     }
     setState(() {
