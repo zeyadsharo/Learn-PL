@@ -130,7 +130,7 @@ class AboutPage extends StatelessWidget {
     var db = new DatabaseHelper();
     //print(_getdata2);
     try { 
-      Objects object = await db.getObjects(langId, conceptId);
+      Objects object = await db.getDescription(langId, conceptId);
       return object.object;
     } catch (e) {
       return "error";

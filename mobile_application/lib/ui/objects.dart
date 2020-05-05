@@ -1,38 +1,37 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile_application/model/courseconsepts.dart';
+import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
 class Object extends StatelessWidget {
-  final int id;
-  Object({Key key, @required this.id}) : super(key: key);
+  final String conceptsname;
+  Object({Key key, @required this.conceptsname}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
-      home: new MyHomePage(id),
+      home: new MyHomePage(this.conceptsname),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  int id;
-  MyHomePage(int id) {
-    this.id = id;
-  }
+  final String conceptsname;
+  MyHomePage(this.conceptsname);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState(this.id);
+  _MyHomePageState createState() => new _MyHomePageState(this.conceptsname);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int id;
-  _MyHomePageState(int id) {
-    this.id = id;
+  String conceptsname;
+  _MyHomePageState(String conceptsnames) {
+    this.conceptsname = conceptsnames;
   }
 
   @override
@@ -55,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return new Scaffold(
       appBar: AppBar(
-        title: Text('CourseConcept'),
+        title: Text('Objects'),
         backgroundColor: Colors.red,
       ),
       body: futureBuilder,
@@ -64,15 +63,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<String>> _getData() async {
     var values = new List<String>();
-    values.clear();
+    // values.clear();
     //throw new Exception("Danger Will Robinson!!!");
     var db = new DatabaseHelper();
-    List myUsers = await db.getAllconcepts(this.id);
+    CourseConcepts concepts = await db.getconcepts(conceptsname);
+    int id = concepts.id;
+    print(" consepts id $id");
+    List object = await db.getAllobjects(id);
     // await new Future.delayed(new Duration(seconds: 2));
-    for (var i = 0; i < myUsers.length; i++) {
-      CourseConcepts user = CourseConcepts.map(myUsers[i]);
+    for (var i = 0; i < object.length; i++) {
+      Objects objects = Objects.map(object[i]);
       values.add(
-        "${user.concepts}",
+        "${objects.object}",
       );
     }
     return values;
@@ -89,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 20.0,
             ),
             ListTile(
-              onTap: () =>
-                  {_sendDataToSecondScreen(context, values[index], id, index)},
+              // onTap: () =>
+              //     {_sendDataToSecondScreen(context, values[index], id, index)},
               leading: CircleAvatar(
                 radius: 29.0,
                 // backgroundImage: AssetImage(_model.avatarUrl),

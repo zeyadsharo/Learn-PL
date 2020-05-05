@@ -5,7 +5,8 @@ import 'Quiz/quizpage.dart';
 
 class LearnScreen extends StatefulWidget {
   final String langname;
-  LearnScreen({Key key, @required this.langname}) : super(key: key);
+  LearnScreen({Key key, @required this.langname})
+      : super(key: key);
   @override
   _LearnScreenState createState() => _LearnScreenState(langname);
 }
@@ -44,18 +45,7 @@ class _LearnScreenState extends State<LearnScreen> {
                     ),
                   ),
                   onPressed: () {
-                    int id;
-                    if (langname == "Java")
-                      id = 0;
-                    else if (langname == "C++")
-                      id = 3;
-                    else if (langname == "Python")
-                      id = 2;
-                    else if (langname == "Javascript")
-                      id = 1;
-                    else
-                      id = 4;
-                    _sendDataToSecondScreen(context, id);
+                    _sendDataToSecondScreen(context, langname);
                   },
                 ),
                 Spacer(flex: 4),
@@ -75,7 +65,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       // in changelog 1 we will pass the langname name to ther other widget class
                       // this name will be used to open a particular JSON file
                       // for a particular language
-                      builder: (context) => getjson(langname),
+                      builder: (context) => Quizpage(langname),
                     ));
                   },
                 ),
@@ -90,12 +80,12 @@ class _LearnScreenState extends State<LearnScreen> {
     );
   }
 
-  void _sendDataToSecondScreen(BuildContext context, int idd) {
+  void _sendDataToSecondScreen(BuildContext context, String langnamed) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => CourseConcept(
-            id: idd,
+            langname: langnamed,
           ),
         ));
   }

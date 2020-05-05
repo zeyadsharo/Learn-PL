@@ -7,11 +7,11 @@ import 'resultpage.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-class getjson extends StatelessWidget {
+class Quizpage extends StatelessWidget {
   // accept the langname as a parameter
 
   String langname;
-  getjson(this.langname);
+  Quizpage(this.langname);
   String assettoload;
 
   // a function
@@ -22,12 +22,10 @@ class getjson extends StatelessWidget {
       assettoload = "assets/python.json";
     } else if (langname == "Java") {
       assettoload = "assets/java.json";
-    } else if (langname == "csharp") {
+    } else if (langname == "C#") {
       assettoload = "assets/csharp.json";
     } else if (langname == "C++") {
       assettoload = "assets/cpp.json";
-    } else {
-      assettoload = "assets/linux.json";
     }
   }
 

@@ -17,20 +17,20 @@ class DatabaseHelper {
   final String columnlang = 'lang';
   final String columndes = 'description';
   //Course consepts table
-  final String course_concepts_table = 'course_concepts';
-  final String concepts_id = 'id';
-  final String concepts_name = 'concepts';
-  final String concepts_lang_id = 'lang_id';
+  final String courseCT = 'course_concepts';
+  final String conceptID = 'id';
+  final String conceptName = 'concepts';
+  final String langID = 'langid';
 //Course Objects table
-  final String objects_table = 'objects';
-  final String objects_id = 'id';
-  final String objects_name = 'object';
-  final String objects_lang_id = "lang_id";
-  final String objects_concepts_id = "concept_id";
+  final String objectsT = 'objects';
+  final String objectID = 'id';
+  final String objectName = 'object';
+  final String conceptId = "conceptid";
 //Course Description  table
-  final String description_table = 'descriptions';
-  final String description_id = 'id';
-  final String description_name = 'description';
+  final String descriptiontable = 'descriptions';
+  final String descriptionID = 'id';
+  final String decriptionName = 'description';
+  final String objectid = "objectid";
 
   Future<Database> get db async {
     if (_db != null) {
@@ -54,71 +54,67 @@ class DatabaseHelper {
     await db.execute(sql);
 
     var sql1 =
-        "CREATE TABLE $course_concepts_table ($concepts_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $concepts_name TEXT,$concepts_lang_id INTEGER)";
+        "CREATE TABLE $courseCT ($conceptID INTEGER PRIMARY KEY AUTOINCREMENT,"
+        " $conceptName TEXT,$langID INTEGER)";
     await db.execute(sql1);
     var sql2 =
-        "CREATE TABLE $objects_table ($objects_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $objects_name TEXT,$objects_lang_id INTEGER,$objects_concepts_id INTEGER )";
+        "CREATE TABLE $objectsT ($objectID INTEGER PRIMARY KEY AUTOINCREMENT,"
+        " $objectName TEXT,$conceptId INTEGER )";
     await db.execute(sql2);
     var sql3 =
-        "CREATE TABLE $description_table ($description_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        " $description_name TEXT)";
+        "CREATE TABLE $descriptiontable ($descriptionID INTEGER PRIMARY KEY AUTOINCREMENT,"
+        " $decriptionName TEXT,$objectid INTEGER )";
     await db.execute(sql3);
     SaveData save = new SaveData();
   }
 
 //for course concepts table
-  Future<int> save_course_concepts(CourseConcepts courseConcepts) async {
+  Future<int> savecourseconcepts(CourseConcepts courseConcepts) async {
     var dbClient = await db;
-    int result =
-        await dbClient.insert("$course_concepts_table", courseConcepts.toMap());
+    int result = await dbClient.insert("$courseCT", courseConcepts.toMap());
     return result;
-  }
-
-  Future<List> getAllconcepts(int id) async {
-    var dbClient = await db;
-    var sql =
-        "SELECT * FROM $course_concepts_table WHERE $concepts_lang_id = $id";
-    List result = await dbClient.rawQuery(sql);
-    return result.toList();
   }
 
 //objects table
-  Future<int> save_objects(Objects objects) async {
+  Future<int> saveobjects(Objects objects) async {
     var dbClient = await db;
-    int result = await dbClient.insert("$objects_table", objects.toMap());
+    int result = await dbClient.insert("$objectsT", objects.toMap());
     return result;
   }
 
-  Future<Objects> getObjects(int lang_id, int concept_id) async {
+  Future<Objects> getDescription(int lang_id, int concept_id) async {
     var dbClient = await db;
-    var sql =
-        "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
+    var sql = "SELECT * FROM $objectsT WHERE $conceptId = $concept_id";
     List result = await dbClient.rawQuery(sql);
     if (result.length == 0) return null;
     return new Objects.fromMap(result.first);
   }
 
-  Future<List> getAllobjects(int lang_id, int concept_id) async {
+  Future<List> getAllconcepts(int id) async {
     var dbClient = await db;
-    var sql =
-        "SELECT * FROM $objects_table WHERE $objects_lang_id = $lang_id AND $objects_concepts_id =$concept_id";
+    var sql = "SELECT * FROM $courseCT WHERE $langID = $id";
     List result = await dbClient.rawQuery(sql);
-    return result;
+    return result.toList();
+  }
+
+  Future<List> getAllobjects(int id) async {
+    var dbClient = await db;
+    var sql = "SELECT * FROM $objectsT WHERE $conceptId =?";
+    List result = await dbClient.rawQuery(sql,[id]);
+    return result.toList();
   }
 
 //description _objects table
   Future<int> save_description(DescriptionObjects descriptionObjects) async {
     var dbClient = await db;
     int result =
-        await dbClient.insert("$description_table", descriptionObjects.toMap());
+        await dbClient.insert("$descriptiontable", descriptionObjects.toMap());
     return result;
   }
 
   Future<List> getAlldescription() async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $description_table";
+    var sql = "SELECT * FROM $descriptiontable";
     List result = await dbClient.rawQuery(sql);
     return result.toList();
   }
@@ -136,10 +132,18 @@ class DatabaseHelper {
     return result.toList();
   }
 
+  Future<CourseConcepts> getconcepts(String name) async {
+    var dbClient = await db;
+    var sql = "SELECT * FROM $courseCT WHERE $conceptName=?";
+    var result = await dbClient.rawQuery(sql, [name]);
+    if (result.length == 0) return null;
+    return new CourseConcepts.fromMap(result.first);
+  }
+
   Future<Lang> getLang(String name) async {
     var dbClient = await db;
-    var sql = "SELECT * FROM $langtable WHERE $columnlang = $name";
-    var result = await dbClient.rawQuery(sql);
+    var sql = "SELECT * FROM $langtable WHERE $columnlang=?";
+    var result = await dbClient.rawQuery(sql, [name]);
     if (result.length == 0) return null;
     return new Lang.fromMap(result.first);
   }

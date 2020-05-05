@@ -16,7 +16,7 @@ class _CourseScreenState extends State<CourseScreen> {
     "images/cshap.png",
     "images/cpp.png",
   ];
-  Widget customcard(String langname, String image, String des) {
+  Widget customcard(String langname, String image, String des, int id) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: 20.0,
@@ -24,12 +24,7 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
       child: InkWell(
         onTap: () {
-          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //   // in changelog 1 we will pass the langname name to ther other widget class
-          //   // this name will be used to open a particular JSON file
-          //   // for a particular language
-          //   builder: (context) => getjson(langname),
-          // ));
+          print("ddddddddd $id");
           _sendDataToSecondScreen(context, langname);
         },
         child: Material(
@@ -110,12 +105,12 @@ class _CourseScreenState extends State<CourseScreen> {
               } else {
                 return Container(
                     child: ListView.builder(
-                        itemCount:4,
+                        itemCount: 4,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (BuildContext context, int index) {
                           Lang lang = Lang.map(snapshot.data[index]);
-                          return customcard(
-                              lang.lang, images[index], lang.description);
+                          return customcard(lang.lang, images[index],
+                              lang.description, lang.id);
                         }));
               }
             }));
@@ -124,16 +119,16 @@ class _CourseScreenState extends State<CourseScreen> {
 
 Future<List<Map<String, dynamic>>> _getData() async {
   var db = new DatabaseHelper();
-  List myUsers = await db.getAllLang();
-  return myUsers;
+  List language = await db.getAllLang();
+  return language;
 }
 
-void _sendDataToSecondScreen(BuildContext context, String lang) {
+void _sendDataToSecondScreen(BuildContext context, String langnamed) {
   Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => LearnScreen(
-          langname: lang,
+          langname: langnamed,
         ),
       ));
 }

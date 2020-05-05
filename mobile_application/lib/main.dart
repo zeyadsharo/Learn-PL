@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'ui/StartScreen.dart';
-
 List myUsers;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile_application/model/courseconsepts.dart';
+import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 import 'objects.dart';
+
 class CourseConcept extends StatelessWidget {
-  final int id;
-  CourseConcept({Key key, @required this.id}) : super(key: key);
+  final String langname;
+  CourseConcept({Key key, @required this.langname}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -13,25 +15,25 @@ class CourseConcept extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(id),
+      home: new MyHomePage(langname),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  int id;
-  MyHomePage(int id) {
-    this.id = id;
+  String langname;
+  MyHomePage(String langname) {
+    this.langname = langname;
   }
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState(this.id);
+  _MyHomePageState createState() => new _MyHomePageState(this.langname);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int id;
-  _MyHomePageState(int id) {
-    this.id = id;
+  String langname;
+  _MyHomePageState(String langname) {
+    this.langname = langname;
   }
 
   @override
@@ -65,13 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
     var values = new List<String>();
     values.clear();
     //throw new Exception("Danger Will Robinson!!!");
+
     var db = new DatabaseHelper();
-    List myUsers = await db.getAllconcepts(this.id);
+
+    Lang lang = await db.getLang(langname);
+    int id = lang.id;
+    print("java id $id");
+    List myUsers = await db.getAllconcepts(id);
     // await new Future.delayed(new Duration(seconds: 2));
     for (var i = 0; i < myUsers.length; i++) {
-      CourseConcepts user = CourseConcepts.map(myUsers[i]);
+      CourseConcepts concepts = CourseConcepts.map(myUsers[i]);
       values.add(
-        "${user.concepts}",
+        "${concepts.concepts}",
       );
     }
     return values;
@@ -88,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 20.0,
             ),
             ListTile(
-              onTap: () =>
-                  {_sendDataToSecondScreen(context,id)},
+                
+              onTap: () => { _sendDataToSecondScreen(context,values[index].toString())},
               leading: CircleAvatar(
                 radius: 29.0,
                 // backgroundImage: AssetImage(_model.avatarUrl),
@@ -126,13 +133,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _sendDataToSecondScreen(
-      BuildContext context, int idd) {
-   Navigator.push(
+  void _sendDataToSecondScreen(BuildContext context, String conceptsnamed) {
+    Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => Object(
-            id: idd,
+            conceptsname: conceptsnamed,
           ),
         ));
   }

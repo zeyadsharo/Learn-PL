@@ -1,20 +1,21 @@
 class CourseConcepts {
   int id;
   String concepts;
-  int lang_id;
-  CourseConcepts(this.concepts, this.lang_id);
+  int langid;
+  CourseConcepts(this.id, this.concepts, this.langid);
   CourseConcepts.map(dynamic obj) {
+    this.id = obj['id'];
     this.concepts = obj['concepts'];
-    this.lang_id = obj['lang_id'];
+    this.langid = obj['langid'];
   }
   String get _concepts => concepts;
   int get _id => id;
-  int get _lang_id => lang_id;
+  int get _langid => langid;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     map['concepts'] = _concepts;
-    map['lang_id'] = _lang_id;
+    map['langid'] = _langid;
     if (id != null) {
       map['id'] = _id;
     }
@@ -23,7 +24,7 @@ class CourseConcepts {
 
   CourseConcepts.fromMap(Map<String, dynamic> map) {
     this.concepts = map['concepts'];
-    this.lang_id = map['lang_id'];
+    this.langid = map['langid'];
     this.id = map['id'];
   }
 }
