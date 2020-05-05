@@ -5,32 +5,17 @@ import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
-class Object extends StatelessWidget {
+class Object extends StatefulWidget {
   final String conceptsname;
   Object({Key key, @required this.conceptsname}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: new MyHomePage(this.conceptsname),
-    );
-  }
+   @override
+  _Myobjectpage createState() => _Myobjectpage(conceptsname);
+  
 }
-
-class MyHomePage extends StatefulWidget {
-  final String conceptsname;
-  MyHomePage(this.conceptsname);
-
-  @override
-  _MyHomePageState createState() => new _MyHomePageState(this.conceptsname);
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _Myobjectpage extends State<Object> {
   String conceptsname;
-  _MyHomePageState(String conceptsnames) {
+  _Myobjectpage(String conceptsnames) {
     this.conceptsname = conceptsnames;
   }
 
@@ -95,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               //     {_sendDataToSecondScreen(context, values[index], id, index)},
               leading: CircleAvatar(
                 radius: 29.0,
-                // backgroundImage: AssetImage(_model.avatarUrl),
+                backgroundColor: Color(0xff26a019),
                 child: new Text((index + 1).toString(),
                     style: TextStyle(
                       fontFamily: "Microsoft JhengHei UI",
@@ -119,9 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 20.0,
                 color: Colors.red,
               ),
-              // new Divider(
-              //   height: 2.0,
-              // ),
             ),
           ],
         );

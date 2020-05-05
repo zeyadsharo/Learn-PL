@@ -5,36 +5,20 @@ import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 import 'objects.dart';
 
-class CourseConcept extends StatelessWidget {
+class CourseConcept extends StatefulWidget {
   final String langname;
   CourseConcept({Key key, @required this.langname}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(langname),
-    );
-  }
+  _Myconceptpage createState() => _Myconceptpage(langname);
 }
 
-class MyHomePage extends StatefulWidget {
+class _Myconceptpage extends State<CourseConcept> {
   String langname;
-  MyHomePage(String langname) {
+  _Myconceptpage(String langname) {
     this.langname = langname;
   }
 
-  @override
-  _MyHomePageState createState() => new _MyHomePageState(this.langname);
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String langname;
-  _MyHomePageState(String langname) {
-    this.langname = langname;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 20.0,
             ),
             ListTile(
-                
-              onTap: () => { _sendDataToSecondScreen(context,values[index].toString())},
+              onTap: () =>
+                  {_sendDataToSecondScreen(context, values[index].toString())},
               leading: CircleAvatar(
                 radius: 29.0,
                 // backgroundImage: AssetImage(_model.avatarUrl),

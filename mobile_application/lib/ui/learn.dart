@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'CourseConcepts.dart';
 import 'Quiz/quizpage.dart';
 
-class LearnScreen extends StatefulWidget {
+class LearnScreen extends StatefulWidget{
   final String langname;
   LearnScreen({Key key, @required this.langname})
       : super(key: key);
