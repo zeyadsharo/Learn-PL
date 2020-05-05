@@ -24,7 +24,6 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
       child: InkWell(
         onTap: () {
-          print("ddddddddd $id");
           _sendDataToSecondScreen(context, langname);
         },
         child: Material(

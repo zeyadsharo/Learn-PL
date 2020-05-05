@@ -5,21 +5,12 @@ import 'package:mobile_application/utils/database_helper.dart';
 String _getdata2;
 
 class DescreiptionPage extends StatelessWidget {
-  final String text;
-  final int lang_id;
-  final int consept_id;
-  DescreiptionPage(
-      {Key key,
-      @required this.text,
-      @required this.lang_id,
-      @required this.consept_id})
-      : super(key: key);
+  final String description;
+  final String object;
+  DescreiptionPage({Key key, @required this.description,@required this.object}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     _getdata2 = "zeyad ";
-
-    // _getdata2 = _getdata(0, 1).then((value) => value).toString();
-    //print(b);
     return Scaffold(
         backgroundColor: Colors.blue,
         body: SafeArea(
@@ -54,7 +45,7 @@ class DescreiptionPage extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    this.text,
+                    object,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Ubuntu',
@@ -73,8 +64,6 @@ class DescreiptionPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-
-                // Text('Some Sample Text - 2', style: TextStyle(fontSize: 28)),
                 SingleChildScrollView(
                   child: Column(children: <Widget>[
                     Container(
@@ -83,10 +72,10 @@ class DescreiptionPage extends StatelessWidget {
                       child: Center(
                           child: FutureBuilder(
                         initialData: 'Get Data ...',
-                        future: _getData(lang_id, consept_id),
+                        future: _getData(description),
                         builder: (context, snapshot) {
                           return Text(
-                            snapshot.data.toString(),
+                            description,
                             style: TextStyle(fontSize: 14),
                             textAlign: TextAlign.left,
                           );
@@ -94,29 +83,6 @@ class DescreiptionPage extends StatelessWidget {
                       )),
                     ),
                   ]),
-                ),
-
-                Container(
-                  color: Colors.blue, // Yellow
-                  height: 60.0,
-                  child: Center(
-                    child: RaisedButton(
-                      color: const Color(0xff1111ed),
-                      child: new Text(
-                        "Next",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: "Microsoft JhengHei UI",
-                          fontSize: 20,
-                          color: Color(0xffffffff),
-                        ),
-                      ),
-                      onPressed: () {
-                        _sendDataToSecondScreen(
-                            context, "Hello world", lang_id, consept_id);
-                      },
-                    ),
-                  ),
                 ),
                 // Text('Some Sample dfdsfdsfText - 3',
                 //     ),
@@ -126,27 +92,19 @@ class DescreiptionPage extends StatelessWidget {
         )));
   }
 
-  Future<String> _getData(int langId, int conceptId) async {
+  Future<String> _getData(String conceptname) async {
     var db = new DatabaseHelper();
-    //print(_getdata2);
-    try { 
-      Objects object = await db.getDescription(langId, conceptId);
-      return object.object;
+    Future<List<String>> _getData() async {
+      var values = new List<String>();
+    }
+
+    try {
+      var db = new DatabaseHelper();
+      Objects concepts = await db.getobject(conceptname);
+      return concepts.description;
     } catch (e) {
       return "error";
     }
   }
 
-  void _sendDataToSecondScreen(
-      BuildContext context, String text, int lan_id, int con_id) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DescreiptionPage(
-            text: text,
-            lang_id: lan_id,
-            consept_id: con_id,
-          ),
-        ));
-  }
 }

@@ -59,102 +59,18 @@ class SaveData {
       "while Loops",
       "for Loops"
     ];
-    // Lang lang = await db.getLang("Java");
-    // int id = lang.id;
     for (var i = conceptid; i < javaconcepts.length; i++) {
       await db.savecourseconcepts(
           new CourseConcepts(conceptid++, javaconcepts[i].toString(), 1));
     }
-    print("concepts saved for java");
     for (var i = 0; i < basicconcepts.length; i++) {
-      await db.saveobjects(new Objects(basicconcepts[i].toString(), 0));
+      await db.saveobjects(new Objects(basicconcepts[i].toString(),
+          "description for " + basicconcepts[i].toString(), 0));
     }
 
     for (var i = 0; i < conditionandloop.length; i++) {
-      await db.saveobjects(new Objects(conditionandloop[i].toString(), 1));
+      await db.saveobjects(new Objects(conditionandloop[i].toString(),
+          "description for " + basicconcepts[i].toString(), 1));
     }
-    print("object saved for java");
   }
-
-  // Future<void> saveconcepts() async {
-  //   var java = [
-  //     "Introduction to Java",
-  //     "A Hello World Program",
-  //     "Java comments",
-  //     "Variables",
-  //     "Primitive Operotor",
-  //     "Strings",
-  //     "Getting User Input",
-  //     "Conditinal Statment",
-  //     "Else if Statment",
-  //     "Logical Statment"
-  //   ];
-  //   for (var i = 0; i < java.length; i++) {
-  //     await db.save_course_concepts(new CourseConcepts(java[i].toString(), 0));
-  //   }
-  //   var csharp = ["Hello C#", "conditional and loop"];
-  //   for (var i = 0; i < csharp.length; i++) {
-  //     await db
-  //         .save_course_concepts(new CourseConcepts(csharp[i].toString(), 1));
-  //   }
-  //   var python = ["Hello Python", "conditional and loop"];
-  //   for (var i = 0; i < python.length; i++) {
-  //     await db
-  //         .save_course_concepts(new CourseConcepts(python[i].toString(), 2));
-  //   }
-  //   var cplas = ["Hello C++", "conditional and loop"];
-  //   for (var i = 0; i < cplas.length; i++) {
-  //     await db.save_course_concepts(new CourseConcepts(cplas[i].toString(), 3));
-  //   }
-  //   print("concepts saved");
-  // }
-
-  // Future<void> saveobjects() async {
-  //   var javaconcepts = [
-  //     " Java is a popular programming language, created in 1995",
-  //     "dsfsdf","Sdfdsfds","sdfdsfdsf","Sdfsdfdsf"
-
-  //   ];
-  //   for (var i = 0; i < javaconcepts.length; i++) {
-  //     await db.save_objects(new Objects(javaconcepts[i].toString(), 0, 0));
-  //   }
-
-  //   var python = [
-  //     """ Java is a popular programming language, created in 1995
-  //         It is owned by Oracle, and more than 3 billion devices run Java
-  //         It is used for:
-  //         Mobile applications (specially Android apps)
-  //         Desktop applications
-  //         Web applications
-  //         Web servers and application servers
-  //         Games
-  //         Database connection
-  //         And much, much more!
-  //         Why Use Java?
-  //         Java works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc.)
-  //         It is one of the most popular programming language in the world
-  //         It is easy to learn and simple to use
-  //         It is open-source and free
-  //         It is secure, fast and powerful
-  //         It has a huge community support (tens of millions of developers)
-  //         Java is an object oriented language which gives a clear structure to programs and allows code to be reused, lowering development costs
-  //         As Java is close to C++ and C#, it makes it easy for programmers to switch to Java or vice versa""",
-  //     """Java is an object oriented language (OOP). Java objects are part of so-called "Java classes".
-  //         Let's go over the Hello world program, which simply prints "Hello, World!" to the screen.
-  //          public class Main {
-  //           public static void main(String[] args) {
-  //           System.out.println("This will be printed");
-  //          }
-  //         }""",
-  //     """Java CommentsThe Java comments are the statements that are not executed by the compiler and interpreter. The comments can be used to provide information or explanation about the variable, method, class or any statement. It can also be used to hide program code.
-  //        Types of Java Comments
-  //        There are three types of comments in Kava.
-  //        single Line Comment
-  //        Multi Line Comment
-  //        Documentation Comment"""
-  //   ];
-  //   for (var i = 0; i < python.length; i++) {
-  //     await db.save_objects(new Objects(python[i].toString(), 2, i));
-  //   }
-  // }
 }

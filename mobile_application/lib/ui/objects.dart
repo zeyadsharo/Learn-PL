@@ -5,6 +5,8 @@ import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/ui/coursescreen/Descreiption.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
+int count = 0;
+
 class Object extends StatefulWidget {
   final String conceptsname;
   Object({Key key, @required this.conceptsname}) : super(key: key);
@@ -46,38 +48,29 @@ class _Myobjectpage extends State<Object> {
     );
   }
 
-  Future<List<String>> _getData() async {
-    var values = new List<String>();
-    // values.clear();
-    //throw new Exception("Danger Will Robinson!!!");
+  Future<List<Map<String, dynamic>>> _getData() async {
     var db = new DatabaseHelper();
     CourseConcepts concepts = await db.getconcepts(conceptsname);
     int id = concepts.id;
+    if (id != null) count = await db.getCountobject(id);
     print(" consepts id $id");
     List object = await db.getAllobjects(id);
-    // await new Future.delayed(new Duration(seconds: 2));
-    for (var i = 0; i < object.length; i++) {
-      Objects objects = Objects.map(object[i]);
-      values.add(
-        "${objects.object}",
-      );
-    }
-    return values;
+    return object;
   }
 
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> values = snapshot.data;
     return new ListView.builder(
-      itemCount: values.length,
+      itemCount: count ,
       itemBuilder: (BuildContext context, int index) {
+        Objects object = Objects.map(snapshot.data[index]);
         return new Column(
           children: <Widget>[
             Divider(
               height: 20.0,
             ),
             ListTile(
-              // onTap: () =>
-              //     {_sendDataToSecondScreen(context, values[index], id, index)},
+              onTap: () =>
+                  {_sendDataToSecondScreen(context,object.object.toString(),object.description.toString())},
               leading: CircleAvatar(
                 radius: 29.0,
                 backgroundColor: Color(0xff26a019),
@@ -93,7 +86,7 @@ class _Myobjectpage extends State<Object> {
                 runSpacing: 4.0, // gap between lines
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  Text(values[index]),
+                  Text(object.object.toString()),
                   SizedBox(
                     width: 16.0,
                   ),
@@ -111,15 +104,13 @@ class _Myobjectpage extends State<Object> {
     );
   }
 
-  void _sendDataToSecondScreen(
-      BuildContext context, String text, int lan_id, int con_id) {
+  void _sendDataToSecondScreen(BuildContext context, String object,String description) {
     Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => DescreiptionPage(
-            text: text,
-            lang_id: lan_id,
-            consept_id: con_id,
+            description: description,
+            object:object,
           ),
         ));
   }
