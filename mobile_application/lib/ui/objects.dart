@@ -9,10 +9,10 @@ class Object extends StatefulWidget {
   final String conceptsname;
   Object({Key key, @required this.conceptsname}) : super(key: key);
   @override
-   @override
+  @override
   _Myobjectpage createState() => _Myobjectpage(conceptsname);
-  
 }
+
 class _Myobjectpage extends State<Object> {
   String conceptsname;
   _Myobjectpage(String conceptsnames) {
@@ -116,7 +116,7 @@ class _Myobjectpage extends State<Object> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AboutPage(
+          builder: (context) => DescreiptionPage(
             text: text,
             lang_id: lan_id,
             consept_id: con_id,

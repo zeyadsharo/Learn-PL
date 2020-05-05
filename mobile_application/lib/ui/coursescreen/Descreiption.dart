@@ -4,11 +4,11 @@ import 'package:mobile_application/utils/database_helper.dart';
 
 String _getdata2;
 
-class AboutPage extends StatelessWidget {
+class DescreiptionPage extends StatelessWidget {
   final String text;
   final int lang_id;
   final int consept_id;
-  AboutPage(
+  DescreiptionPage(
       {Key key,
       @required this.text,
       @required this.lang_id,
@@ -142,7 +142,7 @@ class AboutPage extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AboutPage(
+          builder: (context) => DescreiptionPage(
             text: text,
             lang_id: lan_id,
             consept_id: con_id,
