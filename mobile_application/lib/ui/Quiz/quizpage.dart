@@ -73,13 +73,15 @@ class _quizpageState extends State<quizpage> {
   int x = 9;
   @override
   var mydata;
+  static var gg = new Random();
   _quizpageState(this.mydata);
 
   Color colortoshow = Colors.indigoAccent;
   Color right = Colors.green;
   Color wrong = Colors.red;
   int marks = 0;
-  int i = 1;
+
+  int i = gg.nextInt(10);
   // extra varibale to iterate
   int j = 1;
   int timer = 30;

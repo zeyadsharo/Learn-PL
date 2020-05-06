@@ -36,7 +36,6 @@ class SaveData {
       "Array",
       "Classes and Object"
     ];
-
     var basicconcepts = [
       "Introduction to Java",
       "A Hello World Program",
@@ -97,7 +96,6 @@ class SaveData {
    \n ++ Increment operator : increments a value by 1
    \n -- Decrement operator : decrements a value by 1""",
     ];
-
     var conditionandloop = [
       "Java Conditions and If Statements",
       "Nested if Statements",
@@ -212,7 +210,6 @@ class SaveData {
                 \n }    
                   """
     ];
-
     var array = ["Elements in Array", "Enhanced for Loop"];
     var arrayvalue = [
       """
@@ -293,7 +290,6 @@ class SaveData {
       \n item - a single item from the collections.
     """
     ];
-
     var classesandObject = [
       "Object-Oriented Programming",
       "Creating Classes & Objects",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
@@ -76,7 +77,7 @@ class DescreiptionPage extends StatelessWidget {
                         builder: (context, snapshot) {
                           return Text(
                             description.trim(),
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 13,color: Colors.white,fontWeight:FontWeight.w500),
                             textAlign: TextAlign.left,
                           );
                         },

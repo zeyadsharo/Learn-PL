@@ -1,88 +1,87 @@
-[
-  {
-    "1": "Which of the following is not a C++ Header file ?",
-    "2": "Which function finds out the Variable type in Python ?",
-    "3": "Which of the following keyword is used to define a function in Python ?",
-    "4": "Which of the following is a print Function in Python ?",
-    "5": "Which function finds out the Variable type in Python ?",
-    "6": "Which of the following keyword is used to define a function in Python ?",
-    "7": "Which function finds out the Variable type in Python ?",
-    "8": "Which of the following keyword is used to define a function in Python ?",
-    "9": "Which function finds out the Variable type in Python ?",
-    "0": "Which of the following keyword is used to define a function in Python ?"
+[{
+    "1": "C++ is a:?",
+    "2": "How many specifiers are present in access specifiers in class?",
+    "3": "Which choice indicates a single-line comment",
+    "4": "Which of the following is true?",
+    "5": "What is the data type name for integers?",
+    "6": "Which other keywords are also used to declare the class other than class?",
+    "7": "Which option do you need to make C++ programs ?",
+    "8": "Which of the following is a C++ compiler?",
+    "9": "How many times should a data type be mentioned for a variable?",
+    "0": "What does a class in C++ holds?"
   },
   {
     "1": {
-      "a": "conio.h",
-      "b": "cstdlib.h",
-      "c": "stdio.h",
+      "a": "Client-side scripting language",
+      "b": "General purpose programming language",
+      "c": "Movie making program",
       "d": "math.h"
     },
     "2": {
-      "a": "typedef",
-      "b": "typeof",
-      "c": "type",
-      "d": "find"
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
     },
     "3": {
-      "a": "func",
-      "b": "def",
-      "c": "void",
-      "d": "function"
+      "a": "//single line comment",
+      "b": "**single line comment",
+      "c": "##single line comment",
+      "d": "?single line comment?"
     },
     "4": {
-      "a": "cout",
-      "b": "print",
-      "c": "println",
-      "d": "stderr"
+      "a": "Comments are ignored by the compiler",
+      "b": "Single line comment starts with an * (asterisk)",
+      "c": "Comments are used to confuse programmers",
+      "d": "Client-side scripting language"
     },
     "5": {
-      "a": "typedef",
-      "b": "typeof",
-      "c": "type",
-      "d": "find"
+      "a": "int",
+      "b": "string",
+      "c": "double",
+      "d": "float"
     },
     "6": {
-      "a": "func",
-      "b": "def",
-      "c": "void",
-      "d": "function"
+      "a": "struct",
+      "b": "union",
+      "c": "object",
+      "d": " both struct & union"
     },
     "7": {
-      "a": "typedef",
-      "b": "typeof",
-      "c": "type",
-      "d": "find"
+      "a": "Excel",
+      "b": "Web browser",
+      "c": "Compile",
+      "d": "Framework"
     },
     "8": {
-      "a": "func",
-      "b": "def",
-      "c": "void",
-      "d": "function"
+      "a": "Console",
+      "b": "GNU GCC",
+      "c": "GAC",
+      "d": "CodeBlocks"
     },
     "9": {
-      "a": "typedef",
-      "b": "typeof",
-      "c": "type",
-      "d": "find"
+      "a": "When entering variable's value using cin",
+      "b": "Everywhere the variable is used",
+      "c": "Only once: when declaring the variable",
+      "d": "When printing a variable's value"
     },
     "0": {
-      "a": "func",
-      "b": "def",
-      "c": "void",
-      "d": "function"
+      "a": "data",
+      "b": "functions",
+      "c": "both data & functions",
+      "d": "arrays"
     }
   },
   {
-    "1": "stdio.h",
-    "2": "type",
-    "3": "def",
-    "4": "print",
-    "5": "typeof",
-    "6": "void",
-    "7": "find",
-    "8": "function",
-    "9": "typedef",
-    "0": "func"
+    "1": "General purpose programming language",
+    "2": "3",
+    "3": "//single line comment",
+    "4": "Comments are ignored by the compiler",
+    "5": "int",
+    "6": " both struct & union",
+    "7": "Compile",
+    "8": "GNU GCC",
+    "9": "Only once: when declaring the variable",
+    "0": "both data & functions"
   }
 ]
