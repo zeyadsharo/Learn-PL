@@ -1,6 +1,5 @@
 import 'package:mobile_application/class/savedata.dart';
 import 'package:mobile_application/model/courseconsepts.dart';
-import 'package:mobile_application/model/description_objects.dart';
 import 'package:mobile_application/model/lang.dart';
 import 'package:mobile_application/model/objects.dart';
 import 'package:sqflite/sqflite.dart';

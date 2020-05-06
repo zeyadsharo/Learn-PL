@@ -7,24 +7,25 @@ import 'resultpage.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-class Quizpage extends StatelessWidget {
-  // accept the langname as a parameter
-
-  String langname;
+class Quizpage extends StatefulWidget {
+  final String langname;
   Quizpage(this.langname);
+
+  @override
+  _QuizpageState createState() => _QuizpageState();
+}
+
+class _QuizpageState extends State<Quizpage> {
   String assettoload;
 
-  // a function
-  // sets the asset to a particular JSON file
-  // and opens the JSON
   setasset() {
-    if (langname == "Python") {
+    if (widget.langname == "Python") {
       assettoload = "assets/python.json";
-    } else if (langname == "Java") {
+    } else if (widget.langname == "Java") {
       assettoload = "assets/java.json";
-    } else if (langname == "C#") {
+    } else if (widget.langname == "C#") {
       assettoload = "assets/csharp.json";
-    } else if (langname == "C++") {
+    } else if (widget.langname == "C++") {
       assettoload = "assets/cpp.json";
     }
   }
@@ -185,7 +186,7 @@ class _quizpageState extends State<quizpage> {
         j++;
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => resultpage(marks: marks),
+          builder: (context) => Resultpage(marks: marks),
         ));
       }
       btncolor["a"] = Colors.indigoAccent;

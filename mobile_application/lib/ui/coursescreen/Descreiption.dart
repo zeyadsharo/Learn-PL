@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launcher_icons/xml_templates.dart';
 import 'package:mobile_application/model/objects.dart';
 import 'package:mobile_application/utils/database_helper.dart';
 
