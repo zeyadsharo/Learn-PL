@@ -24,9 +24,7 @@ class _CourseScreenState extends State<CourseScreen> {
         horizontal: 30.0,
       ),
       child: InkWell(
-        onTap: () {
-         
-        },
+        onTap: () {},
         child: Material(
             color: Colors.indigoAccent,
             elevation: 10.0,
@@ -163,8 +161,6 @@ Future<List<Map<String, dynamic>>> _getData() async {
   List language = await db.getAllLang();
   return language;
 }
-
-
 
 void _sendDataToconceptsScreen(BuildContext context, String langnamed) {
   Navigator.push(
