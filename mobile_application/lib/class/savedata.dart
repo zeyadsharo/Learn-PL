@@ -8,6 +8,7 @@ class SaveData {
   SaveData() {
     savelang();
     saveconceptjava();
+    saveinfocshap();
     print("database saved");
   }
   var db = new DatabaseHelper();
@@ -471,22 +472,346 @@ class SaveData {
       await db.savecourseconcepts(
           new CourseConcepts(conceptid++, javaconcepts[i].toString(), 1));
     }
+    for (var i = conceptid; i < javaconcepts.length; i++) {
+      await db.savecourseconcepts(
+          new CourseConcepts(conceptid++, javaconcepts[i].toString(), 0));
+    }
+    for (var i = conceptid; i < javaconcepts.length; i++) {
+      await db.savecourseconcepts(
+          new CourseConcepts(conceptid++, javaconcepts[i].toString(), 2));
+    }
+    for (var i = conceptid; i < javaconcepts.length; i++) {
+      await db.savecourseconcepts(
+          new CourseConcepts(conceptid++, javaconcepts[i].toString(), 3));
+    }
     for (var i = 0; i < basicconcepts.length; i++) {
-      await db.saveobjects(new Objects(basicconcepts[i].toString(),
-          "description for " + basicconceptsdes[i].toString(), 0));
+      await db.saveobjects(new Objects(
+          basicconcepts[i].toString(), basicconceptsdes[i].toString(), 0));
+    }
+    for (var i = 0; i < basicconcepts.length; i++) {
+      await db.saveobjects(new Objects(
+          basicconcepts[i].toString(), basicconceptsdes[i].toString(), 0));
     }
 
     for (var i = 0; i < conditionandloop.length; i++) {
       await db.saveobjects(new Objects(conditionandloop[i].toString(),
-          "description for " + conditionandloopvalue[i].toString(), 1));
+          conditionandloopvalue[i].toString(), 1));
     }
     for (var i = 0; i < array.length; i++) {
-      await db.saveobjects(new Objects(array[i].toString(),
-          "description for " + arrayvalue[i].toString(), 2));
+      await db.saveobjects(
+          new Objects(array[i].toString(), arrayvalue[i].toString(), 2));
     }
     for (var i = 0; i < classesandObject.length; i++) {
       await db.saveobjects(new Objects(classesandObject[i].toString(),
-          "description for " + classesandObjectvalue[i].toString(), 3));
+          classesandObjectvalue[i].toString(), 3));
+    }
+  }
+
+  Future<void> saveinfocshap() async {
+    var basicconcepts = [
+      "Introduction to C#",
+      "A Hello World Program",
+      "C# comments",
+      "Variables",
+      "Strings",
+      "Getting User Input",
+      "Dncrement and Decrement",
+    ];
+    var basicconceptsdes = [
+      """C# is a Windows programmer go-to language. It's the preferred language for any desktop or web application that runs on a Windows computer.
+	  C# is a part of the ASP.NET framework, so you'll hear it mentioned along with VB.NET. You have these two language options when you decide to learn Windows platform development.
+	  If you prefer C-style language syntax, C# is the direction you should go when learning Windows development.""",
+      """Your First Java Program Let's start by creating a simple program that prints \"Hello World\" to the screen
+          \nclass MyClass {
+          \npublic static void main(String[ ] args) {
+          \n System.Console.WriteLine("Hello World!");\n}""",
+      """// this is a single-line comment\n
+              x = 5; // a single-line comment after code\n
+              /*  This is also acomment spanning multiple lines */""",
+      """Variables are containers for storing data values.
+                \nIn C#, there are different types of variables, for example:
+                \nString - stores text, such as "Hello". String values are surrounded by double quotes
+                \nint - stores integers (whole numbers), without decimals, such as 123 or -123
+                \nfloat - stores floating point numbers, with decimals, such as 19.99 or -19.99
+				\ndouble - The double data type can store fractional numbers from 1.7e−308 to 1.7e+308. Note that you can end the value with a "D" (although not required):
+                \nchar - stores single characters, such as 'a' or 'B'. Char values are surrounded by single quotes
+                \nbool - stores values with two states: true or false \n
+                \n int myNum = 5;
+                \n float myFloatNum = 5.99f;
+				\n double myNum = 19.99D;
+                \n char myLetter = 'D';
+                \n bool myBool = true;
+                \n String myText = "Hello";""",
+      """
+               \nStrings are used for storing text.
+               \n A String variable contains a collection of characters surrounded by double quotes:
+               \n  string str1 = "GeeksForGeeks";
+			   \n  string lowerstr1 = str1.ToLower();
+			   \n  string upperstr1 = str1.ToUpper(); 
+			   \n Console.WriteLine(lowerstr1);   // Outputs geeksforgeeks
+               \n Console.WriteLine(upperstr1);   // Outputs GEEKSFORGEEKS
+                """,
+      """C# User Input
+          You have already learned that Console.WriteLine() is used to output (print) values.
+		  Now we will use Console.ReadLine() to get user input.\n
+         \n In the following example,the user can input his or hers username, which is stored in the variable userName. Then we print the value of userName:
+        \n Console.WriteLine("Enter username:"); // Type your username and press enter
+     \n namespace MyApplication {
+      \n class Program {     
+   \n static void Main(string[] args){
+   \n Console.WriteLine("Enter username:"); // Type your username and press enter
+   \n string userName = Console.ReadLine(); // Create a string variable and get user input from the keyboard and store it in the variable.
+   \n Console.WriteLine("Username is: " + userName); // Print the value of the variable (userName), which will display the input value.
+   \n Username is: tt //  the input
+  }
+}
+""",
+      """\n It is one of the variation of “Arithmetic Operator“.
+   \n Increment and Decrement Operators are Unary Operators.
+   \n Unary Operator Operates on One Operand.
+   \n Increment Operator is Used to Increment Value Stored inside Variable on which it is operating.
+   \n Decrement Operator is used to decrement value of Variable by 1 (default).  
+   \n Operator % is the remainder after division.
+   \n operator / Divide the number by a number.
+   \n operator * Multiply the number by a number.   
+   \n ++ Increment operator : increments a value by 1
+   \n -- Decrement operator : decrements a value by 1""",
+    ];
+    var conditionandloop = [
+      "C# Conditions and If Statements",
+      "Nested if Statements",
+      "else if Statements",
+      "Logical Operators",
+      "The switch Statement",
+      "while Loops",
+      "for Loops"
+    ];
+    var conditionandloopvalue = [
+      """C# supports the usual logical conditions from mathematics:
+    \nLess than: a < b
+    \nLess than or equal to: a <= b
+    \nGreater than: a > b
+    \nGreater than or equal to: a >= b
+    \nEqual to a == b
+    \nNot Equal to: a != b
+    \n C# has the following conditional statements:
+    \nUse if to specify a block of code to be executed, if a specified condition is true.
+    \nUse else to specify a block of code to be executed, if the same condition is false.
+    \nUse else if to specify a new condition to test, if the first condition is false.
+    \nUse switch to specify many alternative blocks of code to be executed.
+    \nThe if Statement
+    \nUse the if statement to specify a block of C# code to be executed if a condition is True.
+    \nSyntax
+    \nif (condition) {
+    \n // block of code to be executed if the condition is True
+    \n}
+    \nExample
+    \n  if (20 > 18) {
+    \n    Console.WriteLine("20 is greater than 18");
+    \n }""",
+      """
+      \n In c#, Nested if-else statements or conditions are useful to include one if…else statement  
+      \nwithin another if…else statement to test one condition followed by another condition.
+	  \nGenerally, in c# by placing one if…else statement within another if…else statement is called as a nested if…else statement.
+      \n Syntax
+      \n The syntax for a nested if...else is as follows −
+      \n if (condition){
+      \n if (nested_condition_1) {
+      \n   // Statements to Execute 
+	  \n  }
+      \n    else {
+      \n      // Statements to Execute  } }
+      \n   else {
+	  \n  if (nested_condition_2) {
+	  \n // Statements to Execute }
+	  \n else {
+	  \n // Statements to Execute
+	  \n }
+      \n  }
+    """,
+      """ \nThe else Statement
+    \nUse the else statement to specify a block of code to be executed if the condition is False.
+      \n Syntax
+      \n if (condition) {
+      \n    // block of code to be executed if the condition is True
+      \n } else {
+      \n   // block of code to be executed if the condition is False
+      \n }
+    """,
+      """\nC# Operators
+        \nOperators are used to perform operations on variables and values.
+        \nIn the example below, we use the + operator to add together two values:
+        \n  +	Addition	Adds together two values	x + y	
+        \n  -	Subtraction	Subtracts one value from another	x - y	
+        \n  *	Multiplication	Multiplies two values	x * y	
+        \n  /	Division	Divides one value by another	x / y	
+        \n  %	Modulus	Returns the division remainder	x % y	
+        \n  ++	Increment	Increases the value of a variable by 1	++x	
+        \n  --	Decrement	Decreases the value of a variable by 1	--x
+       """,
+      """\nC# Switch Statements
+          \n Use the switch statement to select one of many code blocks to be executed.\
+          \n Syntax
+          \n switch(expression) {
+          \n   case x:
+          \n     // code block
+          \n     break;
+          \n   case y:
+          \n     // code block
+          \n     break;
+          \n   default:
+          \n     // code block
+		  \n      break;
+          \n }
+          """,
+      """\nC# While Loop
+                  \nThe while loop loops through a block of code as long as a specified condition is True:
+                  \nSyntax
+                  \nwhile (condition) {
+                  \n  // code block to be executed
+                  \n}
+                  \nThe example below uses a do/while loop. The loop will always be executed at least once,
+                  \n even if the condition is false, because the code block is executed before the condition is tested:
+                  \n Example
+                  \n int i = 0;
+                  \n do {
+                  \n    Console.WriteLine(i);
+                  \n   i++;
+                  \n }
+                  \n while (i < 5);
+                  """,
+      """\nC# For Loop
+                \n When you know exactly how many times you want to loop through a block of code, use the for loop instead of a while loop:
+                \n 
+                \n Syntax
+                \n for (statement 1; statement 2; statement 3) {
+                \n   // code block to be executed
+                \n  }
+                \n Statement 1  is executed (one time) before the execution of the code block.
+                \n Statement 2 defines the condition for executing the code block.
+                \n Statement 3 is executed (every time) after the code block has been executed.
+                \n 
+                \n The example below will print the numbers 0 to 4:
+                \n 
+                \n Example
+                \n for (int i = 0; i < 5; i++) {
+                \n    Console.WriteLine(i);
+                \n }    
+                  """
+    ];
+    var array = ["Elements in Array", "Enhanced for Loop"];
+    var arrayvalue = [
+      """
+    \n C# Arrays
+    \n Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value.
+    \n
+    \n To declare an array, define the variable type with square brackets:
+    \nWe have now declared a variable that holds an array of strings. To insert values to it, 
+    \nwe can use an array literal - place the values in a comma-separated list, inside curly braces:
+    \nString[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+    \n 
+    \n     Access the Elements of an Array
+    \n You access an array element by referring to the index number.
+    \n 
+    \n This statement accesses the value of the first element in cars:
+    \n 
+    \n Example
+    \n String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+    \n Console.WriteLine(cars[0]);
+    \n // Outputs Volvo
+    """,
+      """Difference between for loop and for-each loop
+      \n To know why the for-each loop is preferred over for loop while working with arrays, let's see the following example.
+      \n 
+      \n Here the example shows how we can iterate through elements of an array using the standard for loop.
+      \n 
+      \n class ForLoop {
+      \n     static void main(String[] args) {
+      \n        for(int k =0; k <= 10; k++)
+      \n     {
+      \n       Console.WriteLine("Print Number :  {0}",k);
+      \n 
+      \n         }        
+      \n     }
+      \n }
+      \n Output:
+      \n 
+      \n print Number  : 0
+      \n print Number  : 1
+      \n print Number  : 2
+      \n print Number  : 3
+      \n print Number  : 4
+	  \n print Number  : 5
+	  \n print Number  : 6
+	  \n print Number  : 7
+	  \n print Number  : 8
+	  \n print Number  : 9
+	  \n print Number  : 10
+      \n Now we will perform the same task using the for-each loop.
+      \n 
+      \n class ForEeach {
+      \n    public static void main(String[] args) {
+      \n       
+      \n       string[] Names = new string[] { "Shiv", "Khadak", "Athesham", "Ajay" };
+      \n      foreach (string name in Names){
+      \n      Console.WriteLine("Name of a Person is {0}",name);
+      \n       }
+      \n    }
+      \n }
+      \n Output:
+      \n 
+      \n Name of a Person Shiv 
+      \n Name of a Person is Khadak
+      \n Name of a Person is Athesham
+      \n Name of a Person is Ajay
+      \n 
+      \n C# for-each loop
+      \n Let's first look at the syntax of for each loop:
+      \n 
+      \n foreach (type variableName in arrayName) {
+      \n     // code block to be executed
+      \n }
+	  \n C# for loop
+	  \n  the syntax of for loop:
+	  \n for (statement 1; statement 2; statement 3) {
+	  \n  // code block to be executed 
+	  \n }
+      \n Here,
+      \n 
+      \n collection - a collection or array that you have to loop through.
+      \n item - a single item from the collections.
+    """
+    ];
+    var classesandObject = [
+      "Object-Oriented Programming",
+      "Creating Classes & Objects",
+      "Methods",
+      "Defining Attributes",
+      "Access Modifiers",
+      "Getters and Setters",
+      "Constructors",
+    ];
+
+    for (var i = conceptid; i < basicconcepts.length; i++) {
+      await db.savecourseconcepts(
+          new CourseConcepts(conceptid++, basicconcepts[i].toString(), 2));
+    }
+    for (var i = 0; i < basicconceptsdes.length; i++) {
+      await db.saveobjects(new Objects(
+          basicconcepts[i].toString(), basicconceptsdes[i].toString(), 0));
+    }
+    for (var i = 0; i < basicconcepts.length; i++) {
+      await db.saveobjects(new Objects(
+          basicconcepts[i].toString(), basicconceptsdes[i].toString(), 0));
+    }
+
+    for (var i = 0; i < conditionandloop.length; i++) {
+      await db.saveobjects(new Objects(conditionandloop[i].toString(),
+          conditionandloopvalue[i].toString(), 1));
+    }
+    for (var i = 0; i < array.length; i++) {
+      await db.saveobjects(
+          new Objects(array[i].toString(), arrayvalue[i].toString(), 2));
     }
   }
 }
