@@ -26,7 +26,12 @@ class DatabaseHelper {
   final String objectName = 'object';
   final String objectDes = 'description';
   final String conceptId = "conceptid";
-
+  intDB() async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentDirectory.path, 'mydb.db');
+    var myOwnDB = await openDatabase(path, version: 1, onCreate: _onCreate);
+    return myOwnDB;
+  }
   Future<Database> get db async {
     if (_db != null) {
       return _db;
@@ -34,14 +39,6 @@ class DatabaseHelper {
     _db = await intDB();
     return _db;
   }
-
-  intDB() async {
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, 'mydb.db');
-    var myOwnDB = await openDatabase(path, version: 1, onCreate: _onCreate);
-    return myOwnDB;
-  }
-
   void _onCreate(Database db, int newVersion) async {
     var sql =
         "CREATE TABLE $langtable ($columnId INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -66,15 +63,17 @@ class DatabaseHelper {
     int result = await dbClient.insert("$courseCT", courseConcepts.toMap());
     return result;
   }
-
 //objects table
   Future<int> saveobjects(Objects objects) async {
     var dbClient = await db;
     int result = await dbClient.insert("$objectsT", objects.toMap());
     return result;
   }
-
-  
+  Future<int> saveLang(Lang lang) async {
+    var dbClient = await db;
+    int result = await dbClient.insert("$langtable", lang.toMap());
+    return result;
+  }
 
   Future<List> getAllconcepts(int id) async {
     var dbClient = await db;
@@ -90,12 +89,7 @@ class DatabaseHelper {
     return result.toList();
   }
  
-  Future<int> saveLang(Lang lang) async {
-    var dbClient = await db;
-    int result = await dbClient.insert("$langtable", lang.toMap());
-    return result;
-  }
-
+  
   Future<List> getAllLang() async {
     var dbClient = await db;
     var sql = "SELECT * FROM $langtable";

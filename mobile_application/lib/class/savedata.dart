@@ -5,12 +5,9 @@ import 'package:mobile_application/utils/database_helper.dart';
 
 class SaveData {
   int conceptid = 0;
-  int basicconceptsid = 0;
   SaveData() {
     savelang();
     saveconceptjava();
-    // saveconcepts();
-    // saveobjects();
     print("database saved");
   }
   var db = new DatabaseHelper();
@@ -19,7 +16,7 @@ class SaveData {
     var des = [
       "Python is one of the most popular and fastest programming language since half a decade.\nIf You think you have learn it.. \nJust test yourself !!",
       "Java has always been one of the best choices for Enterprise World. If you think you have learn the Language...\nJust Test Yourself !!",
-      "Javascript is one of the most Popular programming language supporting the Web.\nIt has a wide range of Libraries making it Very Powerful !",
+      "C# is used to develop web apps, desktop apps, mobile apps, games and much more.",
       "C++, being a statically typed programming language is very powerful and Fast.\nit's DMA feature makes it more useful. !",
       "Linux is a OPEN SOURCE Operating System which powers many Servers and Workstation.\nIt is also a top Priority in Developement Work !",
     ];
@@ -469,10 +466,7 @@ class SaveData {
       
       
       """
-
-
     ];
-
     for (var i = conceptid; i < javaconcepts.length; i++) {
       await db.savecourseconcepts(
           new CourseConcepts(conceptid++, javaconcepts[i].toString(), 1));

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/model/lang.dart';
+import 'package:mobile_application/ui/CourseConcepts.dart';
+import 'package:mobile_application/ui/Quiz/quizpage.dart';
 import 'package:mobile_application/utils/database_helper.dart';
-import '../learn.dart';
 import 'package:flutter/services.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
       child: InkWell(
         onTap: () {
-          _sendDataToSecondScreen(context, langname);
+         
         },
         child: Material(
             color: Colors.indigoAccent,
@@ -77,6 +78,47 @@ class _CourseScreenState extends State<CourseScreen> {
                     textAlign: TextAlign.justify,
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.all(20.0),
+                  child: new ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new RaisedButton(
+                        onPressed: () {
+                          _sendDataToconceptsScreen(context, langname);
+                        },
+                        child: new Text(
+                          "Course",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Microsoft JhengHei UI",
+                            fontSize: 26,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                        color: Colors.green,
+                      ),
+                      new RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => Quizpage(langname),
+                          ));
+                        },
+                        child: new Text(
+                          "Quiz",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: "Microsoft JhengHei UI",
+                            fontSize: 26,
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                        color: Colors.deepOrange,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             )),
       ),
@@ -122,11 +164,13 @@ Future<List<Map<String, dynamic>>> _getData() async {
   return language;
 }
 
-void _sendDataToSecondScreen(BuildContext context, String langnamed) {
+
+
+void _sendDataToconceptsScreen(BuildContext context, String langnamed) {
   Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LearnScreen(
+        builder: (context) => CourseConcept(
           langname: langnamed,
         ),
       ));
